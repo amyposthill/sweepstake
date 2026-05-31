@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="modernist" data-appearance="light">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sweep '26 — World Cup Sweepstake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>/* ── The Sweep '26 — retro theme tokens ──────────────────────────────────────
+   3 directions × light/dark. Set via [data-theme] + [data-appearance] on <html>.
+   --------------------------------------------------------------------------- */
+
+:root{
+  --font-display:'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --font-ui:'Archivo', system-ui, sans-serif;
+  --font-mono:'Space Mono', ui-monospace, monospace;
+
+  --r-card:4px;     /* poster look = crisp corners */
+  --maxw:1180px;
+  --halftone:rgba(0,0,0,.05);
+}
+
+/* ============================= PANINI (Mexico '70) ======================== */
+[data-theme="panini"]{
+  --accent:#d9482f; --accent-2:#1f8a7a; --accent-3:#e0a128; --accent-4:#21487a;
+  --gold:#dc9a1f; --win:#2f8a4f; --out:#c0492f; --spoon:#8a5cc4;
+  --accent-ink:#fbf4e3;
+}
+[data-theme="panini"][data-appearance="light"]{
+  --paper:#f1e6c9; --paper-2:#e9dbb8; --surface:#fbf4e1; --surface-2:#f2e7c9;
+  --ink:#2a2216; --ink-2:#6e6048; --ink-3:#a08e6c; --line:#d8c49a;
+  --halftone:rgba(42,34,22,.06); --shadow:rgba(70,52,18,.16);
+}
+[data-theme="panini"][data-appearance="dark"]{
+  --paper:#1a1610; --paper-2:#211b11; --surface:#262015; --surface-2:#2f2718;
+  --ink:#f3e8cf; --ink-2:#bdab86; --ink-3:#8a7b5c; --line:#3e3420;
+  --halftone:rgba(255,247,224,.05); --shadow:rgba(0,0,0,.5);
+}
+
+/* ============================ MODERNIST (España '82) ====================== */
+[data-theme="modernist"]{
+  --accent:#cf2e2e; --accent-2:#1c2b4a; --accent-3:#e6b422; --accent-4:#2b6f6a;
+  --gold:#d9a40f; --win:#2f7d52; --out:#cf2e2e; --spoon:#7a5ad0;
+  --accent-ink:#f7f3ec;
+}
+[data-theme="modernist"][data-appearance="light"]{
+  --paper:#ece5d6; --paper-2:#e2dac8; --surface:#f7f3ea; --surface-2:#ebe3d3;
+  --ink:#17171a; --ink-2:#56524a; --ink-3:#928d80; --line:#d2c8b7;
+  --halftone:rgba(23,23,26,.05); --shadow:rgba(28,43,74,.16);
+}
+[data-theme="modernist"][data-appearance="dark"]{
+  --paper:#13151b; --paper-2:#181b23; --surface:#1d212b; --surface-2:#252a39;
+  --ink:#f0ece2; --ink-2:#aaa599; --ink-3:#757269; --line:#2f3441;
+  --halftone:rgba(240,236,226,.05); --shadow:rgba(0,0,0,.55);
+}
+
+/* ============================== NIGHT (floodlit print) ==================== */
+[data-theme="night"]{
+  --accent:#e8633f; --accent-2:#29a59a; --accent-3:#f0b83a; --accent-4:#5aa9d6;
+  --gold:#f0b83a; --win:#2bb673; --out:#e8633f; --spoon:#b07ce0;
+  --accent-ink:#0f1c1f;
+}
+[data-theme="night"][data-appearance="dark"]{
+  --paper:#0e1b1e; --paper-2:#112226; --surface:#15292d; --surface-2:#1c3338;
+  --ink:#ece3cf; --ink-2:#9fb0ac; --ink-3:#6c7f7b; --line:#234043;
+  --halftone:rgba(236,227,207,.055); --shadow:rgba(0,0,0,.55);
+}
+[data-theme="night"][data-appearance="light"]{
+  --paper:#e4ebe9; --paper-2:#dae2df; --surface:#f1f5f3; --surface-2:#e3ebe8;
+  --ink:#0f2024; --ink-2:#4c5d5b; --ink-3:#7f908d; --line:#c4d2cf;
+  --halftone:rgba(15,32,36,.05); --shadow:rgba(20,50,52,.16);
+}
+
+/* ===================== HOSTS (USA · CANADA · MEXICO) ====================== */
+/* Red is shared by all three flags → the anchor. USA blue + Mexico green
+   as supporting accents, on warm white paper. */
+[data-theme="hosts"]{
+  --accent:#cf3338; --accent-2:#1f7a4d; --accent-3:#2f54a6; --accent-4:#4a86c5;
+  --gold:#d99a1f; --win:#1f7a4d; --out:#cf3338; --spoon:#7a5ad0;
+  --accent-ink:#f9f5ec;
+}
+[data-theme="hosts"][data-appearance="light"]{
+  --paper:#f1ece0; --paper-2:#e8e1d1; --surface:#f9f5ea; --surface-2:#ece4d3;
+  --ink:#1b1f2a; --ink-2:#565c68; --ink-3:#8f949c; --line:#d4cbb8;
+  --halftone:rgba(27,31,42,.05); --shadow:rgba(47,84,166,.16);
+}
+[data-theme="hosts"][data-appearance="dark"]{
+  --paper:#0f131b; --paper-2:#141a24; --surface:#18202c; --surface-2:#202938;
+  --ink:#f0ece1; --ink-2:#a6abb5; --ink-3:#70757f; --line:#2b3441;
+  --halftone:rgba(240,236,225,.05); --shadow:rgba(0,0,0,.55);
+}
+
+/* ── base ─────────────────────────────────────────────────────────────────*/
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--paper);}
+body{
+  font-family:var(--font-ui);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s ease, color .35s ease;
+}
+/* halftone dot texture layer behind everything */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(var(--halftone) 1px, transparent 1.4px);
+  background-size:7px 7px;
+  mix-blend-mode:normal;opacity:var(--ht-opacity,.9);
+  transition:opacity .3s ease;
+}
+.app{position:relative;z-index:1;}
+
+::selection{background:var(--accent);color:var(--accent-ink);}
+
+/* utility */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+.mono{font-family:var(--font-mono);}
+.disp{font-family:var(--font-display);font-weight:800;line-height:.92;}
+/* ── app.css — components for The Sweep '26 ──────────────────────────────── */
+
+/* ============================ MASTHEAD ==================================== */
+.mast{ position:relative; background:var(--surface);
+  border-bottom:2px solid var(--ink); padding-top:env(safe-area-inset-top,0px); }
+.mast-in{ display:flex; align-items:flex-end; justify-content:space-between;
+  gap:24px; padding:48px 28px 22px; }
+.mast-kicker{ font-size:11px; letter-spacing:.18em; color:var(--accent);
+  text-transform:uppercase; }
+.mast-title{ font-size:clamp(40px,7vw,80px); letter-spacing:-.01em;
+  text-transform:uppercase; color:var(--ink); margin:4px 0 6px;
+  white-space:nowrap; line-height:1; }
+.mast-title::after{ content:" '26"; color:var(--accent); }
+.mast-sub{ font-size:12px; letter-spacing:.16em; color:var(--ink-2);
+  text-transform:uppercase; }
+.mast-right{ padding-bottom:6px; }
+.appbtn{ display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.12em;
+  padding:9px 16px; border:1.5px solid var(--ink); background:transparent;
+  color:var(--ink); border-radius:999px; transition:all .18s; }
+.appbtn:hover{ background:var(--ink); color:var(--paper); }
+.appbtn-dot{ width:10px; height:10px; border-radius:50%; background:var(--accent-3);
+  box-shadow:0 0 0 2px var(--surface), 0 0 0 3.5px var(--accent-3); }
+.mast-stripe{ display:flex; height:8px; }
+.mast-stripe i{ flex:1; }
+
+/* ============================ HERO (pot + story) ========================== */
+.hero{ display:grid; grid-template-columns:300px 1fr; gap:22px;
+  align-items:stretch; padding-top:30px; padding-bottom:6px; }
+.pot{ background:var(--ink); color:var(--paper); border-radius:var(--r-card);
+  padding:22px 24px; display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden; }
+.pot::after{ content:''; position:absolute; right:-30px; top:-30px; width:130px;
+  height:130px; border:14px solid var(--accent); border-radius:50%; opacity:.25; }
+.pot-label{ font-size:12px; letter-spacing:.2em; opacity:.7; }
+.pot-val{ font-size:clamp(58px,7vw,82px); color:var(--accent-3); margin:2px 0 6px;
+  letter-spacing:-.02em; }
+.pot-foot{ font-size:11px; letter-spacing:.1em; opacity:.65; }
+.story{ background:var(--surface); border:1.5px solid var(--line);
+  border-left:6px solid var(--accent); border-radius:var(--r-card);
+  padding:20px 24px; display:flex; flex-direction:column; gap:11px; align-items:flex-start; }
+.story-tag{ flex:none; font-size:11px; letter-spacing:.14em; color:var(--accent-ink);
+  background:var(--accent); padding:5px 10px; border-radius:3px; }
+.story-txt{ font-size:clamp(16px,1.7vw,20px); line-height:1.5; color:var(--ink);
+  text-wrap:pretty; }
+.story-txt strong{ color:var(--accent); font-weight:700; }
+
+/* ============================ SECTION HEADS =============================== */
+.shead{ display:flex; align-items:baseline; gap:14px; margin:38px 0 16px;
+  border-bottom:2px solid var(--ink); padding-bottom:10px; }
+.shead-n{ font-size:30px; color:var(--accent); letter-spacing:-.02em; }
+.shead-txt{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+.shead-title{ font-size:clamp(26px,3.6vw,40px); text-transform:uppercase;
+  letter-spacing:-.01em; }
+.shead-sub{ font-size:12px; letter-spacing:.1em; color:var(--ink-3);
+  text-transform:uppercase; }
+
+/* ============================ PRIZE BOARD ================================= */
+.pboard{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:14px; }
+.pcard{ position:relative; text-align:left; cursor:pointer; font-family:inherit;
+  background:var(--surface); border:1.5px solid var(--line);
+  border-radius:var(--r-card); padding:18px 18px 16px; overflow:hidden;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s; }
+.pcard:hover{ transform:translateY(-3px); border-color:var(--ink);
+  box-shadow:6px 6px 0 var(--ink); }
+.pcard:active{ transform:translateY(-1px); box-shadow:3px 3px 0 var(--ink); }
+.pcard--winner{ grid-row:span 2; background:var(--ink); color:var(--paper);
+  border-color:var(--ink); }
+.pcard--winner .pcard-name,.pcard--winner .pcard-note{ color:var(--paper); opacity:.7; }
+.pcard--winner .pcard-leader{ color:var(--paper); }
+.pcard--winner .pcard-amt{ color:var(--accent-3); }
+.pcard--winner:hover{ box-shadow:6px 6px 0 var(--accent); }
+.pcard-top{ display:flex; align-items:center; justify-content:space-between; }
+.pcard-medal{ display:inline-flex; align-items:center; justify-content:center;
+  min-width:34px; height:34px; padding:0 8px; font-size:17px; letter-spacing:0;
+  background:var(--accent); color:var(--accent-ink); border-radius:3px; }
+.pcard--winner .pcard-medal{ background:var(--accent-3); color:#1b1b1b; }
+.pcard-amt{ font-size:clamp(20px,2.3vw,28px); letter-spacing:-.01em; color:var(--accent);
+  margin-top:14px; }
+.pcard--winner .pcard-amt{ font-size:clamp(30px,3.4vw,46px); color:var(--accent-3); }
+.pcard-name{ font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-2); }
+.pcard-leader{ font-size:clamp(26px,3vw,40px); font-weight:800; margin-top:6px;
+  color:var(--ink); line-height:.96; letter-spacing:-.01em; text-wrap:balance; }
+.pcard--winner .pcard-leader{ font-size:clamp(40px,5vw,66px); }
+.pcard-team{ display:flex; align-items:center; gap:7px; font-size:15px;
+  color:var(--ink-2); margin-top:3px; }
+.pcard--winner .pcard-team{ color:var(--paper); opacity:.85; font-size:18px; }
+.pcard-flag{ font-size:19px; }
+.pcard-foot{ margin-top:14px; display:flex; flex-direction:column; gap:6px; }
+.pcard-pill{ align-self:flex-start; font-size:10px; letter-spacing:.1em;
+  padding:4px 9px; border-radius:3px; border:1.5px solid var(--line);
+  color:var(--ink-2); }
+.pcard-pill--won{ background:var(--win); border-color:var(--win); color:#fff; }
+.pcard--winner .pcard-pill{ border-color:color-mix(in srgb,var(--paper) 32%,transparent);
+  color:var(--paper); opacity:.85; }
+.pcard-note{ font-size:12.5px; color:var(--ink-3); line-height:1.35; }
+.pcard.is-won{ border-color:var(--win); }
+.pcard.is-won::before{ content:''; position:absolute; top:0; left:0; bottom:0;
+  width:5px; background:var(--win); }
+
+/* ============================ STAGE TRACKER =============================== */
+.track{ display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
+.tstep{ position:relative; padding-top:6px; }
+.tstep-bar{ height:9px; background:var(--surface-2); border:1.5px solid var(--line);
+  border-radius:3px; overflow:hidden; }
+.tstep-bar i{ display:block; height:100%; width:0; background:var(--ink);
+  transition:width .7s cubic-bezier(.4,0,.1,1); transition-delay:var(--d); }
+.tstep--done .tstep-bar i{ background:var(--win); }
+.tstep--current .tstep-bar i{ background:var(--accent-3);
+  background-image:repeating-linear-gradient(45deg, rgba(0,0,0,.18) 0 6px, transparent 6px 12px); }
+.track--in .tstep--done .tstep-bar i,
+.track--in .tstep--current .tstep-bar i{ width:100%; }
+.track--in .tstep--todo .tstep-bar i{ width:0; }
+.tstep-count{ font-size:clamp(30px,4vw,46px); margin-top:10px; color:var(--ink);
+  letter-spacing:-.02em; }
+.tstep--todo .tstep-count{ color:var(--ink-3); }
+.tstep--current .tstep-count{ color:var(--accent); }
+.tstep-label{ font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-2); margin-top:2px; }
+.tstep-now{ display:inline-block; margin-top:8px; font-size:9.5px; letter-spacing:.12em;
+  background:var(--accent); color:var(--accent-ink); padding:3px 7px; border-radius:3px; }
+
+/* ============================ FILTERS ===================================== */
+.filters{ display:flex; align-items:center; justify-content:space-between;
+  gap:16px; margin-bottom:14px; flex-wrap:wrap; }
+.ftabs{ display:flex; gap:8px; flex-wrap:wrap; }
+.ftab{ display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+  font-family:var(--font-ui); font-size:13px; font-weight:600;
+  padding:8px 14px; border:1.5px solid var(--line); background:var(--surface);
+  color:var(--ink-2); border-radius:999px; transition:all .15s; }
+.ftab:hover{ border-color:var(--ink); color:var(--ink); }
+.ftab.is-on{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+.ftab-n{ font-size:11px; opacity:.85; }
+.ftab.is-on .ftab-n{ opacity:1; }
+.fsearch{ position:relative; flex:none; }
+.fsearch-in{ font-family:var(--font-mono); font-size:13px; width:240px; max-width:48vw;
+  padding:9px 30px 9px 14px; border:1.5px solid var(--line); background:var(--surface);
+  color:var(--ink); border-radius:999px; outline:none; transition:border-color .15s; }
+.fsearch-in::placeholder{ color:var(--ink-3); }
+.fsearch-in:focus{ border-color:var(--ink); }
+.fsearch-x{ position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  border:0; background:transparent; color:var(--ink-3); cursor:pointer;
+  width:22px; height:22px; border-radius:50%; font-size:12px; }
+.fsearch-x:hover{ color:var(--ink); }
+
+/* ============================ TABLE ======================================= */
+.tablewrap{ border:1.5px solid var(--line); border-radius:var(--r-card);
+  overflow:hidden; }
+.ptable{ width:100%; border-collapse:collapse; }
+.ptable thead th{ font-family:var(--font-mono); font-size:11px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-2); text-align:left; cursor:pointer;
+  padding:12px 16px; background:var(--surface-2); border-bottom:2px solid var(--ink);
+  user-select:none; white-space:nowrap; }
+.ptable thead th:hover{ color:var(--ink); }
+.ptable thead th.is-sorted{ color:var(--accent); }
+.th-arrow{ font-size:9px; margin-left:4px; }
+.col-id{ width:46px; } .col-goals{ width:80px; } .col-status{ width:150px; }
+.prow{ cursor:pointer; border-bottom:1px solid var(--line);
+  transition:background .12s; }
+.prow:last-child{ border-bottom:0; }
+.prow:hover{ background:var(--surface); }
+.prow:nth-child(even){ background:color-mix(in srgb, var(--surface) 45%, transparent); }
+.prow:nth-child(even):hover{ background:var(--surface); }
+.prow td{ padding:11px 16px; vertical-align:middle; font-size:14px; color:var(--ink); }
+.col-id{ color:var(--ink-3); }
+.col-name{ font-weight:600; }
+.ttag{ display:inline-flex; align-items:center; gap:8px; font-size:14px;
+  padding:4px 12px 4px 6px; border:1.5px solid var(--line); border-radius:999px;
+  background:var(--surface); }
+.ttag--active{ border-color:color-mix(in srgb,var(--win) 50%,var(--line)); }
+.ttag--eliminated{ opacity:.6; text-decoration:line-through;
+  text-decoration-color:var(--out); text-decoration-thickness:1.5px; }
+.ttag--spoon{ border-color:var(--spoon); color:var(--spoon); }
+.tflag{ font-size:17px; }
+.gbadge{ display:inline-flex; align-items:center; justify-content:center;
+  min-width:30px; padding:3px 8px; font-size:13px; background:var(--surface-2);
+  border:1.5px solid var(--line); border-radius:3px; color:var(--ink-2); }
+.gbadge.is-top{ background:var(--accent-3); border-color:var(--accent-3);
+  color:var(--ink); font-weight:700; }
+.sbadge{ display:inline-flex; align-items:center; gap:7px; font-size:13px;
+  color:var(--ink-2); white-space:nowrap; }
+.sdot{ width:9px; height:9px; border-radius:50%; flex:none; }
+.st-active .sdot{ background:var(--win); box-shadow:0 0 0 3px color-mix(in srgb,var(--win) 22%,transparent); }
+.st-out .sdot{ background:var(--out); }
+.st-spoon .sdot{ background:var(--spoon); }
+.st-active{ color:var(--win); }
+.st-spoon{ color:var(--spoon); }
+.ptag{ display:inline-block; font-size:11px; font-family:var(--font-mono);
+  letter-spacing:.04em; padding:4px 9px; border-radius:3px; border:1.5px solid var(--line);
+  color:var(--ink-2); }
+.ptag.is-won{ background:var(--win); border-color:var(--win); color:#fff; }
+.ptag--winner{ border-color:var(--gold); color:var(--gold); }
+.ptag--runner,.ptag--boot{ border-color:var(--accent); color:var(--accent); }
+.ptag--spoon{ background:var(--spoon); border-color:var(--spoon); color:#fff; }
+.ptag-none{ color:var(--ink-3); }
+.empty{ text-align:center; padding:40px; color:var(--ink-3); letter-spacing:.1em; }
+
+/* ============================ DETAIL DRAWER =============================== */
+.drawer-scrim{ position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.45);
+  opacity:0; pointer-events:none; transition:opacity .28s ease; }
+.drawer-scrim.is-open{ opacity:1; pointer-events:auto; }
+.drawer{ position:absolute; top:0; right:0; height:100%; width:min(440px,92vw);
+  background:var(--paper); border-left:2px solid var(--ink); overflow-y:auto;
+  transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.1,1);
+  padding:26px 28px 40px; }
+.drawer.is-open{ transform:translateX(0); }
+.drawer-x{ position:absolute; top:18px; right:18px; width:34px; height:34px;
+  border:1.5px solid var(--line); background:var(--surface); color:var(--ink);
+  border-radius:50%; cursor:pointer; font-size:14px; transition:all .15s; }
+.drawer-x:hover{ background:var(--ink); color:var(--paper); }
+.drawer-num{ font-size:11px; letter-spacing:.14em; color:var(--accent); }
+.drawer-name{ font-size:34px; text-transform:uppercase; margin:6px 0 12px;
+  letter-spacing:-.01em; }
+.drawer-team{ display:flex; align-items:center; gap:12px; padding:14px 0;
+  border-top:1.5px solid var(--line); border-bottom:1.5px solid var(--line);
+  margin-bottom:16px; }
+.drawer-flag{ font-size:38px; }
+.drawer-teamname{ font-size:30px; text-transform:uppercase; }
+.drawer .sbadge{ margin-top:14px; }
+.drawer-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1.5px solid var(--line); border-radius:var(--r-card);
+  overflow:hidden; margin:16px 0; }
+.dstat{ background:var(--surface); padding:14px 10px; text-align:center; }
+.dstat-n{ display:block; font-size:30px; color:var(--ink); letter-spacing:-.02em; }
+.dstat-l{ font-size:9.5px; letter-spacing:.08em; color:var(--ink-3); margin-top:3px; }
+.drawer-prize{ display:flex; flex-direction:column; gap:3px; padding:14px 16px;
+  border:1.5px solid var(--accent); border-radius:var(--r-card); margin-bottom:18px; }
+.drawer-prize span{ font-size:10px; letter-spacing:.14em; color:var(--accent); }
+.drawer-prize strong{ font-size:18px; color:var(--ink); }
+.drawer-prize.ptag--spoon{ border-color:var(--spoon); }
+.drawer-prize.ptag--spoon span{ color:var(--spoon); }
+.drun-head{ font-size:11px; letter-spacing:.14em; color:var(--ink-3);
+  text-transform:uppercase; margin-bottom:6px; }
+.drun-step{ display:flex; gap:14px; padding:10px 0; position:relative; }
+.drun-step:not(:last-child)::before{ content:''; position:absolute; left:5px; top:22px;
+  bottom:-10px; width:2px; background:var(--line); }
+.drun-dot{ width:12px; height:12px; border-radius:50%; flex:none; margin-top:4px;
+  background:var(--surface); border:2px solid var(--ink-3); z-index:1; }
+.drun-done .drun-dot{ background:var(--win); border-color:var(--win); }
+.drun-current .drun-dot{ background:var(--accent-3); border-color:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent); }
+.drun-out .drun-dot{ background:var(--out); border-color:var(--out); }
+.drun-stage{ font-weight:700; font-size:15px; color:var(--ink); }
+.drun-current .drun-stage{ color:var(--accent); }
+.drun-text{ font-size:12px; color:var(--ink-2); margin-top:2px; }
+
+/* ============================ FOOTER ====================================== */
+.foot{ text-align:center; padding:36px 20px 48px; margin-top:42px;
+  border-top:2px solid var(--ink); }
+.foot span{ font-size:11px; letter-spacing:.14em; color:var(--ink-3); }
+
+.people-sec{ padding-bottom:10px; }
+
+/* ============================ PRE-KICKOFF ================================= */
+.tstep-now--next{ background:var(--accent-3); color:#1b1b1b; }
+.tstep--next .tstep-count{ color:var(--ink); }
+.tstep--next .tstep-bar{ border-color:var(--accent-3); }
+
+.prehero-wrap{ display:flex; flex-direction:column; gap:14px;
+  padding-top:14px; padding-bottom:6px; }
+.prehero-row{ display:grid; grid-template-columns:300px 1fr; gap:22px;
+  align-items:stretch; }
+.prehero{ background:var(--ink); color:var(--paper); border-radius:var(--r-card);
+  padding:30px 32px; display:flex; flex-direction:column; justify-content:center;
+  position:relative; overflow:hidden; }
+.prehero::after{ content:''; position:absolute; left:-50px; bottom:-60px; width:200px;
+  height:200px; border:18px solid var(--accent); border-radius:50%; opacity:.18; }
+.prehero-kick{ font-size:12px; letter-spacing:.22em; color:var(--accent-3); }
+.prehero-when{ font-size:11px; letter-spacing:.12em; opacity:.6; margin-top:16px; }
+.cd{ display:flex; align-items:flex-start; gap:10px; margin-top:12px; }
+.cd-cell{ display:flex; flex-direction:column; align-items:center; min-width:74px; }
+.cd-n{ font-size:clamp(46px,7vw,82px); line-height:.9; letter-spacing:-.02em;
+  color:var(--paper); font-variant-numeric:tabular-nums; }
+.cd-l{ font-size:10px; letter-spacing:.18em; opacity:.6; margin-top:6px; }
+.cd-sep{ font-size:clamp(40px,6vw,68px); line-height:.9; color:var(--accent-3);
+  opacity:.5; }
+.prehero-side{ display:flex; flex-direction:column; gap:14px; }
+.prehero-side .pot{ flex:none; }
+.welcome{ background:var(--surface); border:1.5px solid var(--line);
+  border-left:6px solid var(--accent); border-radius:var(--r-card);
+  padding:18px 24px 18px 18px; display:flex; flex-direction:column; gap:10px; }
+.welcome-tag{ align-self:flex-start; font-size:11px; letter-spacing:.14em;
+  color:var(--accent-ink); background:var(--accent); padding:5px 10px; border-radius:3px; }
+.welcome-txt{ font-size:15px; line-height:1.55; color:var(--ink); text-wrap:pretty;
+  max-width:64ch; }
+.welcome-txt strong{ color:var(--accent); }
+
+.draw-sec{ padding-bottom:6px; }
+.draw-tools{ display:flex; align-items:center; justify-content:space-between;
+  gap:14px; margin-bottom:16px; flex-wrap:wrap; }
+.draw-count{ font-size:12px; color:var(--ink-3); letter-spacing:.08em; }
+.draw-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:10px; }
+.draw-card{ display:grid; grid-template-columns:auto 1fr auto;
+  grid-template-areas:"id name arrow" "id team arrow";
+  align-items:center; column-gap:12px; row-gap:3px;
+  background:var(--surface); border:1.5px solid var(--line);
+  border-radius:var(--r-card); padding:13px 16px; transition:border-color .15s; }
+.draw-card:hover{ border-color:var(--ink); }
+.draw-id{ grid-area:id; align-self:center; font-size:12px; color:var(--accent); }
+.draw-name{ grid-area:name; font-weight:600; font-size:14.5px; color:var(--ink);
+  text-align:left; white-space:nowrap; }
+.draw-arrow{ grid-area:arrow; align-self:center; justify-self:end;
+  color:var(--ink-3); font-size:13px; }
+.draw-team{ grid-area:team; display:flex; align-items:center; gap:8px;
+  justify-self:start; font-size:14.5px; color:var(--ink-2); text-align:left; }
+.draw-flag{ font-size:19px; }
+
+.prulecard{ display:flex; flex-direction:column; }
+.prule-amt{ font-size:clamp(40px,5vw,64px); color:var(--accent); letter-spacing:-.02em;
+  margin-top:8px; }
+.pcard--winner .prule-amt{ color:var(--accent-3); }
+.prule-rule{ font-size:14.5px; color:var(--ink-2); line-height:1.4; margin-top:8px;
+  text-wrap:pretty; }
+.pcard--winner .prule-rule{ color:var(--paper); opacity:.8; }
+.prulecard .pcard-foot{ margin-top:auto; padding-top:14px; }
+
+/* pre-kickoff drawer */
+.draw-card{ cursor:pointer; text-align:left; font-family:inherit; color:inherit; }
+.draw-card:active{ transform:translateY(1px); }
+.predrawer-grouptag{ display:inline-block; margin-top:14px; font-size:11px;
+  letter-spacing:.12em; background:var(--accent); color:var(--accent-ink);
+  padding:5px 11px; border-radius:3px; }
+.predrawer-rivals{ margin:20px 0; }
+.prival{ display:flex; align-items:center; gap:12px; padding:11px 0;
+  border-bottom:1px solid var(--line); }
+.prival:last-child{ border-bottom:0; }
+.prival-flag{ font-size:24px; }
+.prival-team{ font-weight:600; font-size:15.5px; color:var(--ink); flex:1; }
+.prival-who{ font-size:12px; color:var(--ink-3); letter-spacing:.04em; }
+.predrawer-note{ display:flex; flex-direction:column; gap:5px; padding:16px 18px;
+  border:1.5px solid var(--accent); border-radius:var(--r-card); }
+.predrawer-note span{ font-size:10px; letter-spacing:.14em; color:var(--accent); }
+.predrawer-note strong{ font-size:15.5px; color:var(--ink); line-height:1.4;
+  font-weight:600; text-wrap:pretty; }
+
+/* ============================ DENSITY ===================================== */
+[data-density="compact"] .prow td{ padding:7px 16px; font-size:13px; }
+[data-density="compact"] .hero{ padding-top:20px; }
+[data-density="compact"] .shead{ margin:26px 0 12px; }
+[data-density="comfy"] .prow td{ padding:15px 16px; }
+[data-density="comfy"] .pboard{ gap:18px; }
+[data-density="comfy"] .shead{ margin:50px 0 22px; }
+
+/* ============================ RESPONSIVE ================================== */
+@media (max-width:880px){
+  .hero{ grid-template-columns:1fr; }
+  .pboard{ grid-template-columns:1fr 1fr; }
+  .pcard--winner{ grid-row:auto; grid-column:1 / -1; }
+  .track{ grid-template-columns:repeat(3,1fr); row-gap:18px; }
+  .prehero-row{ grid-template-columns:1fr; gap:14px; }
+}
+@media (max-width:640px){
+  .wrap{ padding:0 15px; }
+  .prehero-wrap{ padding:14px 15px 6px; }
+  .mast-in{ flex-direction:column; align-items:flex-start; gap:12px; padding:48px 15px 18px; }
+  .mast-right{ padding-bottom:0; }
+  .appbtn{ padding:11px 18px; }
+  .hero{ padding-top:22px; gap:14px; }
+  .pboard{ grid-template-columns:1fr; }
+  .draw-grid{ grid-template-columns:1fr; }
+  .prehero{ padding:24px 24px; }
+  .cd-cell{ min-width:0; flex:1; }
+  .draw-tools{ flex-direction:column; align-items:stretch; }
+  .shead{ margin:30px 0 14px; }
+  .filters{ flex-direction:column; align-items:stretch; gap:12px; }
+  .fsearch-in{ width:100%; max-width:none; padding:12px 30px 12px 14px; }
+  .ftabs{ gap:7px; }
+  .ftab{ padding:11px 14px; min-height:44px; }
+
+  /* participants: table → tap-friendly cards */
+  .tablewrap{ border:0; border-radius:0; overflow:visible; }
+  .ptable, .ptable tbody, .ptable tr, .ptable td{ display:block; width:auto; }
+  .ptable thead{ display:none; }
+  .ptable .prow{ display:grid; grid-template-columns:30px 1fr auto;
+    grid-template-areas:"id name goals" "id team status" "id prize prize";
+    column-gap:12px; row-gap:3px; align-items:center; padding:14px;
+    border:1.5px solid var(--line); border-radius:var(--r-card);
+    background:var(--surface); margin-bottom:10px; }
+  .prow:nth-child(even){ background:var(--surface); }
+  .prow:hover{ background:var(--surface); }
+  .prow td{ padding:0; font-size:14px; }
+  .col-id{ grid-area:id; align-self:start; padding-top:3px; font-size:12px; }
+  .col-name{ grid-area:name; font-size:16px; }
+  .col-team{ grid-area:team; }
+  .col-goals{ grid-area:goals; justify-self:end; display:block; }
+  .col-goals .gbadge::after{ content:' GOALS'; margin-left:4px; font-size:9px;
+    letter-spacing:.08em; opacity:.65; }
+  .col-status{ grid-area:status; justify-self:end; display:block; }
+  .col-prize{ grid-area:prize; margin-top:9px; }
+  .col-prize:has(.ptag-none){ display:none; }
+  .ptag{ display:inline-block; padding:5px 10px; }
+
+  .track{ grid-template-columns:repeat(3,1fr); column-gap:8px; row-gap:16px; }
+  .tstep-label{ font-size:10px; }
+  .foot{ padding:30px 15px 40px; margin-top:32px; }
+}
+@media (max-width:380px){
+  .track{ grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>// ── confetti.js — tiny canvas confetti, retro paper colors ───────────────────
+// window.fireConfetti({ x, y, count }) — origin in viewport px (defaults center-top).
+(function () {
+  let canvas, ctx, raf = null, pieces = [];
+
+  function ensure() {
+    if (canvas) return;
+    canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2147483000;';
+    document.body.appendChild(canvas);
+    ctx = canvas.getContext('2d');
+    resize();
+    window.addEventListener('resize', resize);
+  }
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = innerWidth * dpr;
+    canvas.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function colors() {
+    const cs = getComputedStyle(document.documentElement);
+    return ['--accent', '--accent-2', '--accent-3', '--accent-4', '--gold']
+      .map(v => cs.getPropertyValue(v).trim())
+      .filter(Boolean);
+  }
+  function fire(opts) {
+    opts = opts || {};
+    ensure();
+    const cols = colors();
+    const cx = opts.x != null ? opts.x : innerWidth / 2;
+    const cy = opts.y != null ? opts.y : innerHeight * 0.28;
+    const count = opts.count || 90;
+    for (let i = 0; i < count; i++) {
+      const ang = (-Math.PI / 2) + (Math.random() - 0.5) * 2.0;
+      const spd = 7 + Math.random() * 11;
+      pieces.push({
+        x: cx + (Math.random() - 0.5) * 40,
+        y: cy,
+        vx: Math.cos(ang) * spd,
+        vy: Math.sin(ang) * spd - 3,
+        g: 0.26 + Math.random() * 0.12,
+        rot: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.3,
+        w: 6 + Math.random() * 7,
+        h: 8 + Math.random() * 9,
+        col: cols[(Math.random() * cols.length) | 0] || '#d9482f',
+        life: 0,
+        ttl: 120 + Math.random() * 60,
+        shape: Math.random() < 0.35 ? 'circle' : 'rect',
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  function tick() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    for (const p of pieces) {
+      p.life++;
+      p.vy += p.g;
+      p.vx *= 0.99;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.vr;
+      const fade = Math.max(0, 1 - p.life / p.ttl);
+      ctx.save();
+      ctx.globalAlpha = fade;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.col;
+      if (p.shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      }
+      ctx.restore();
+    }
+    pieces = pieces.filter(p => p.life < p.ttl && p.y < innerHeight + 40);
+    if (pieces.length) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = null;
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+    }
+  }
+  window.fireConfetti = fire;
+})();
+</script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script>// ═══════════════════════════════════════════════════════════════════════════
+//  THE SWEEP '26 — DATA LAYER  ·  ★ THIS IS THE ONLY FILE YOU WIRE TO APIs ★
+// ═══════════════════════════════════════════════════════════════════════════
+//  Real participant names and teams loaded. Ready for live API wiring.
+//  See README.md for full integration guide.
+// ═══════════════════════════════════════════════════════════════════════════
+
+window.SWEEP = (function () {
+  const POT = 240;
+  const KICKOFF = '2026-06-11T16:00:00-05:00';
+
+  const PRIZES = [
+    { key: 'winner', medal: '1', label: 'Tournament Winner', amount: 96, share: '40%',
+      rule: 'Your team lifts the trophy.',
+      leader: 'TBD', team: '—', flag: '⏳', note: 'Kicks off June 11th!', won: false },
+    { key: 'runner', medal: '2', label: 'Runner-Up', amount: 60, share: '25%',
+      rule: 'Your team reaches the final but falls short.',
+      leader: 'TBD', team: '—', flag: '⏳', note: 'Kicks off June 11th!', won: false },
+    { key: 'boot', medal: 'B', label: 'Golden Boot', amount: 48, share: '20%',
+      rule: "Your team has the tournament's top scorer.",
+      leader: 'TBD', team: '—', flag: '⏳', note: 'Kicks off June 11th!', won: false },
+    { key: 'goals', medal: 'G', label: 'Most Group Goals', amount: 24, share: '10%',
+      rule: 'Your team scores the most across the group stage.',
+      leader: 'TBD', team: '—', flag: '⏳', note: 'Kicks off June 11th!', won: false },
+    { key: 'spoon', medal: 'S', label: 'Wooden Spoon', amount: 12, share: '5%',
+      rule: 'First team eliminated. Hard luck.',
+      leader: 'TBD', team: '—', flag: '⏳', note: 'Kicks off June 11th!', won: false },
+  ];
+
+  const STAGES = [
+    { key: 'group', label: 'Group Stage',    count: 48, state: 'current' },
+    { key: 'r32',   label: 'Round of 32',    count: 32, state: 'todo' },
+    { key: 'r16',   label: 'Round of 16',    count: 16, state: 'todo' },
+    { key: 'qf',    label: 'Quarter-Finals', count: 8,  state: 'todo' },
+    { key: 'sf',    label: 'Semi-Finals',    count: 4,  state: 'todo' },
+    { key: 'champ', label: 'Champions',      count: 1,  state: 'todo' },
+  ];
+
+  // [name, flag, goals, status, group, finish, prizeKey]
+  const raw = [
+    ['Alan',            'Turkey',                  '🇹🇷', 0, 'active', 'D', '—', null],
+    ['Amy',             'Panama',                  '🇵🇦', 0, 'active', 'L', '—', null],
+    ['Ang',             'Norway',                  '🇳🇴', 0, 'active', 'I', '—', null],
+    ['Ang',             'Paraguay',                '🇵🇾', 0, 'active', 'D', '—', null],
+    ['Ben Hamilton',    'Spain',                   '🇪🇸', 0, 'active', 'H', '—', null],
+    ['Ben Hardy',       'France',                  '🇫🇷', 0, 'active', 'I', '—', null],
+    ['Beth',            'Egypt',                   '🇪🇬', 0, 'active', 'G', '—', null],
+    ['Cath',            'Netherlands',             '🇳🇱', 0, 'active', 'F', '—', null],
+    ['Chris Harvey',    'Haiti',                   '🇭🇹', 0, 'active', 'C', '—', null],
+    ['Conner',          'DR Congo',                '🇨🇩', 0, 'active', 'K', '—', null],
+    ['Danny Houston',   'Germany',                 '🇩🇪', 0, 'active', 'E', '—', null],
+    ['Danny Posthill',  'New Zealand',             '🇳🇿', 0, 'active', 'G', '—', null],
+    ['Frankie',         'South Africa',            '🇿🇦', 0, 'active', 'A', '—', null],
+    ['Gav',             'Tunisia',                 '🇹🇳', 0, 'active', 'F', '—', null],
+    ['Hannah Greason',  'Argentina',               '🇦🇷', 0, 'active', 'J', '—', null],
+    ['Hannah Harvey',   'Bosnia & Herzegovina',    '🇧🇦', 0, 'active', 'B', '—', null],
+    ['Hannah Houston',  'Saudi Arabia',            '🇸🇦', 0, 'active', 'H', '—', null],
+    ['Harry',           'Ivory Coast',             '🇨🇮', 0, 'active', 'E', '—', null],
+    ['Helen',           'United States',           '🇺🇸', 0, 'active', 'D', '—', null],
+    ['Jess',            'Australia',               '🇦🇺', 0, 'active', 'D', '—', null],
+    ['Jimmy',           'Japan',                   '🇯🇵', 0, 'active', 'F', '—', null],
+    ['Joe',             'Uzbekistan',              '🇺🇿', 0, 'active', 'K', '—', null],
+    ['Karen',           'Curaçao',                 '🇨🇼', 0, 'active', 'E', '—', null],
+    ['Kate Leslie',     'Austria',                 '🇦🇹', 0, 'active', 'J', '—', null],
+    ['Kate Nealon',     'Ecuador',                 '🇪🇨', 0, 'active', 'E', '—', null],
+    ['Lanta',           'Sweden',                  '🇸🇪', 0, 'active', 'F', '—', null],
+    ['Linda',           'Mexico',                  '🇲🇽', 0, 'active', 'A', '—', null],
+    ['Luke',            'Belgium',                 '🇧🇪', 0, 'active', 'G', '—', null],
+    ['Lynn',            'Iraq',                    '🇮🇶', 0, 'active', 'I', '—', null],
+    ['Manda',           'Jordan',                  '🇯🇴', 0, 'active', 'J', '—', null],
+    ['Manda',           'Uruguay',                 '🇺🇾', 0, 'active', 'H', '—', null],
+    ['Mark',            'Ghana',                   '🇬🇭', 0, 'active', 'L', '—', null],
+    ['Matilda',         'Portugal',                '🇵🇹', 0, 'active', 'K', '—', null],
+    ['Mick',            'Czechia',                 '🇨🇿', 0, 'active', 'A', '—', null],
+    ['Mick',            'Iran',                    '🇮🇷', 0, 'active', 'G', '—', null],
+    ['Molly',           'Croatia',                 '🇭🇷', 0, 'active', 'L', '—', null],
+    ['Nancy Hardy',     'Colombia',                '🇨🇴', 0, 'active', 'K', '—', null],
+    ['Nancy Harvey',    'South Korea',             '🇰🇷', 0, 'active', 'A', '—', null],
+    ['Nanna Pauline',   'Scotland',                '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 0, 'active', 'C', '—', null],
+    ['Possy',           'Canada',                  '🇨🇦', 0, 'active', 'B', '—', null],
+    ['Possy',           'Cape Verde',              '🇨🇻', 0, 'active', 'H', '—', null],
+    ['Rachel',          'Qatar',                   '🇶🇦', 0, 'active', 'B', '—', null],
+    ['Ruby',            'Morocco',                 '🇲🇦', 0, 'active', 'C', '—', null],
+    ['San',             'Algeria',                 '🇩🇿', 0, 'active', 'J', '—', null],
+    ['Teddy',           'England',                 '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 0, 'active', 'L', '—', null],
+    ['Tom',             'Brazil',                  '🇧🇷', 0, 'active', 'C', '—', null],
+    ['Wilby',           'Switzerland',             '🇨🇭', 0, 'active', 'B', '—', null],
+    ['Will',            'Senegal',                 '🇸🇳', 0, 'active', 'I', '—', null],
+  ];
+
+  const participants = raw.map((r, i) => {
+    const [name, team, flag, goals, status, group, finish, prizeKey] = r;
+    return { id: i + 1, name, team, flag, goals, status, group, finish, prizeKey, stake: 5 };
+  });
+
+  return { POT, KICKOFF, PRIZES, STAGES, participants };
+})();
+</script>
+  <script>// ═══════════════════════════════════════════════════════════════════════════
+//  THE SWEEP '26 — LIVE API LAYER
+//  Fetches from football-data.org and builds the SWEEP shape.
+//  Replace API_KEY below if you regenerate your token.
+// ═══════════════════════════════════════════════════════════════════════════
+
+const SWEEP_API = (function () {
+  const API_KEY   = '97b87b4a049940c097295c7442b073dd';
+  const BASE      = 'https://api.football-data.org/v4';
+  const COMP      = 'WC';  // FIFA World Cup 2026 competition code
+  const HEADERS   = { 'X-Auth-Token': API_KEY };
+
+  // Map football-data.org team names → our participant team names
+  const NAME_MAP = {
+    'United States':              'United States',
+    'USA':                        'United States',
+    'Bosnia and Herzegovina':     'Bosnia & Herzegovina',
+    'Bosnia-Herzegovina':         'Bosnia & Herzegovina',
+    "Côte d'Ivoire":              'Ivory Coast',
+    'Ivory Coast':                'Ivory Coast',
+    'Republic of Korea':          'South Korea',
+    'Korea Republic':             'South Korea',
+    'DR Congo':                   'DR Congo',
+    'Congo DR':                   'DR Congo',
+    'IR Iran':                    'Iran',
+    'Curaçao':                    'Curaçao',
+    'Curacao':                    'Curaçao',
+    'Czechia':                    'Czechia',
+    'Czech Republic':             'Czechia',
+    'Saudi Arabia':               'Saudi Arabia',
+    'Cape Verde':                 'Cape Verde',
+    'New Zealand':                'New Zealand',
+    'South Africa':               'South Africa',
+    'Costa Rica':                 'Costa Rica',
+  };
+
+  function normaliseName(name) {
+    return NAME_MAP[name] || name;
+  }
+
+  // Determine if a team is still active, eliminated, or wooden spoon
+  // We track who's out based on standing data once group stage is done
+  function computeStatus(standing, stage) {
+    if (stage === 'GROUP_STAGE' || stage === 'group') return 'active';
+    // After group stage: position 1 & 2 advance, plus best 8 third-placed
+    // For simplicity, mark as eliminated once the tournament is past group stage
+    // and they have no knockout matches — the API /matches endpoint handles this better
+    return standing.qualified ? 'active' : 'eliminated';
+  }
+
+  async function fetchJSON(url) {
+    const res = await fetch(url, { headers: HEADERS });
+    if (!res.ok) throw new Error(`API error ${res.status}: ${url}`);
+    return res.json();
+  }
+
+  // Build participant list from static draw + live stats
+  function buildParticipants(standingsData, scorersData) {
+    // Flatten all group tables into a team lookup
+    const teamStats = {};
+    let worstTeam = null;
+    let worstGoals = Infinity;
+
+    (standingsData.standings || []).forEach(group => {
+      if (group.type !== 'TOTAL') return;
+      const groupLetter = group.group ? group.group.replace('GROUP_', '') : '?';
+      group.table.forEach(row => {
+        const name = normaliseName(row.team.name);
+        const isEliminated = !row.qualified && standingsData.season?.currentMatchday >= 3;
+        teamStats[name] = {
+          goals:    row.goalsFor,
+          status:   row.qualified ? 'active' : (isEliminated ? 'eliminated' : 'active'),
+          group:    groupLetter,
+          finish:   row.position === 1 ? '1st' : row.position === 2 ? '2nd' :
+                    row.position === 3 ? '3rd' : '4th',
+          position: row.position,
+        };
+        if (isEliminated && row.goalsFor < worstGoals) {
+          worstGoals = row.goalsFor;
+          worstTeam = name;
+        }
+      });
+    });
+
+    // Golden Boot — top scorer's team
+    const topScorer   = (scorersData.scorers || [])[0];
+    const bootTeam    = topScorer ? normaliseName(topScorer.team.name) : null;
+    const bootGoals   = topScorer ? topScorer.goals : 0;
+    const bootPlayer  = topScorer ? topScorer.player.name : null;
+
+    // Most group stage goals
+    let mostGoalsTeam = null, mostGoals = -1;
+    Object.entries(teamStats).forEach(([name, s]) => {
+      if (s.goals > mostGoals) { mostGoals = s.goals; mostGoalsTeam = name; }
+    });
+
+    // Build participants from the static draw
+    const staticParticipants = window.SWEEP.participants;
+    return staticParticipants.map(p => {
+      const stats = teamStats[p.team] || {};
+      const isSpoon = worstTeam && p.team === worstTeam;
+      return {
+        ...p,
+        goals:    stats.goals    ?? 0,
+        status:   isSpoon ? 'spoon' : (stats.status ?? 'active'),
+        group:    stats.group    ?? p.group,
+        finish:   stats.finish   ?? '—',
+        prizeKey: p.team === bootTeam      ? 'boot'   :
+                  p.team === mostGoalsTeam ? 'goals'  :
+                  isSpoon                  ? 'spoon'  : null,
+      };
+    });
+  }
+
+  // Determine stage states
+  function buildStages(matchday) {
+    const md = matchday || 0;
+    return [
+      { key:'group', label:'Group Stage',    count:48, state: md < 3 ? 'current' : 'done' },
+      { key:'r32',   label:'Round of 32',    count:32, state: md < 3 ? 'todo' : md === 3 ? 'current' : 'done' },
+      { key:'r16',   label:'Round of 16',    count:16, state: md < 4 ? 'todo' : md === 4 ? 'current' : 'done' },
+      { key:'qf',    label:'Quarter-Finals', count:8,  state: md < 5 ? 'todo' : md === 5 ? 'current' : 'done' },
+      { key:'sf',    label:'Semi-Finals',    count:4,  state: md < 6 ? 'todo' : md === 6 ? 'current' : 'done' },
+      { key:'champ', label:'Champions',      count:1,  state: md < 7 ? 'todo' : 'done' },
+    ];
+  }
+
+  // Build prize leaders from participants
+  function buildPrizes(participants, scorersData) {
+    const topScorer   = (scorersData.scorers || [])[0];
+    const bootPlayer  = topScorer ? topScorer.player.name : null;
+    const bootTeamName = topScorer ? normaliseName(topScorer.team.name) : null;
+
+    const findLeader = (key) => participants.find(p => p.prizeKey === key);
+    const bootHolder  = participants.find(p => p.team === bootTeamName);
+    const goalsHolder = findLeader('goals');
+    const spoonHolder = findLeader('spoon');
+
+    const maxGoals = Math.max(...participants.map(p => p.goals || 0));
+    const topGoalsP = participants.find(p => p.goals === maxGoals);
+
+    return [
+      { key:'winner', medal:'1', label:'Tournament Winner',  amount:96,  share:'40%',
+        rule:'Your team lifts the trophy.',
+        leader:'TBD', team:'—', flag:'⏳', note:'Still to be decided', won:false },
+      { key:'runner', medal:'2', label:'Runner-Up',           amount:60,  share:'25%',
+        rule:'Your team reaches the final but falls short.',
+        leader:'TBD', team:'—', flag:'⏳', note:'Still to be decided', won:false },
+      { key:'boot',   medal:'B', label:'Golden Boot',         amount:48,  share:'20%',
+        rule:"Your team has the tournament's top scorer.",
+        leader: bootHolder ? bootHolder.name : 'TBD',
+        team:   bootTeamName || '—',
+        flag:   bootHolder ? bootHolder.flag : '⏳',
+        note:   bootPlayer ? `${bootPlayer} leads with ${topScorer.goals} goals` : 'Kicks off June 11th!',
+        won:    false },
+      { key:'goals',  medal:'G', label:'Most Group Goals',    amount:24,  share:'10%',
+        rule:'Your team scores the most across the group stage.',
+        leader: goalsHolder ? goalsHolder.name : (topGoalsP ? topGoalsP.name : 'TBD'),
+        team:   goalsHolder ? goalsHolder.team : (topGoalsP ? topGoalsP.team : '—'),
+        flag:   goalsHolder ? goalsHolder.flag : (topGoalsP ? topGoalsP.flag : '⏳'),
+        note:   topGoalsP ? `${topGoalsP.team} leads with ${maxGoals} goals` : 'Kicks off June 11th!',
+        won:    !!goalsHolder },
+      { key:'spoon',  medal:'S', label:'Wooden Spoon',        amount:12,  share:'5%',
+        rule:'First team eliminated. Hard luck.',
+        leader: spoonHolder ? spoonHolder.name : 'TBD',
+        team:   spoonHolder ? spoonHolder.team : '—',
+        flag:   spoonHolder ? spoonHolder.flag : '⏳',
+        note:   spoonHolder ? `${spoonHolder.team} — out in groups` : 'Kicks off June 11th!',
+        won:    !!spoonHolder },
+    ];
+  }
+
+  // Main fetch — call this to get a live SWEEP object
+  async function fetchSweep() {
+    const [standingsData, scorersData] = await Promise.all([
+      fetchJSON(`${BASE}/competitions/${COMP}/standings`),
+      fetchJSON(`${BASE}/competitions/${COMP}/scorers?limit=10`),
+    ]);
+
+    const matchday   = standingsData.season?.currentMatchday ?? 0;
+    const participants = buildParticipants(standingsData, scorersData);
+    const prizes       = buildPrizes(participants, scorersData);
+    const stages       = buildStages(matchday);
+
+    return {
+      POT:          window.SWEEP.POT,
+      KICKOFF:      window.SWEEP.KICKOFF,
+      PRIZES:       prizes,
+      STAGES:       stages,
+      participants,
+    };
+  }
+
+  return { fetchSweep };
+})();
+</script>
+  <script type="text/babel">
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  .twk-field--area{height:auto;min-height:64px;padding:6px 8px;line-height:1.4;resize:vertical}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange, multiline }) {
+  return (
+    <TweakRow label={label}>
+      {multiline
+        ? <textarea className="twk-field twk-field--area" rows="4" value={value}
+                    placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
+        : <input className="twk-field" type="text" value={value} placeholder={placeholder}
+                 onChange={(e) => onChange(e.target.value)} />}
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+</script>
+  <script type="text/babel">// ── components-hero.jsx — masthead, pot, storyline, prize cards, stage tracker ─
+// Shared to window for the app script. Styles live in sweep/app.css.
+
+const RANK_GLYPH = { winner: 'I', runner: 'II', boot: 'GB', goals: 'MG', spoon: 'WS' };
+
+function Masthead({ title, sub }) {
+  return (
+    <header className="mast">
+      <div className="wrap mast-in">
+        <div className="mast-left">
+          <div className="mast-kicker mono">FIFA World Cup · 2026 · USA · CAN · MEX</div>
+          <h1 className="mast-title disp">{title}</h1>
+          <div className="mast-sub mono">{sub}</div>
+        </div>
+      </div>
+      <div className="mast-stripe" aria-hidden="true">
+        <i style={{ background: 'var(--accent)' }} />
+        <i style={{ background: 'var(--accent-3)' }} />
+        <i style={{ background: 'var(--accent-2)' }} />
+        <i style={{ background: 'var(--accent-4)' }} />
+      </div>
+    </header>
+  );
+}
+
+function Pot({ pot, foot }) {
+  return (
+    <div className="pot">
+      <div className="pot-label mono">TOTAL POT</div>
+      <div className="pot-val disp">£{pot}</div>
+      <div className="pot-foot mono">{foot || '5 PRIZES · 2 ALREADY LOCKED IN'}</div>
+    </div>
+  );
+}
+
+function StoryTicker() {
+  return (
+    <div className="story">
+      <span className="story-tag mono">LATEST</span>
+      <p className="story-txt">
+        We're into the <strong>Round of 16</strong>. Spain are flying with nine group
+        goals, Mbappé's France lead the Golden Boot race, and Bolivia bow out bottom of
+        the pile — the Wooden Spoon belongs to <strong>Participant&nbsp;44</strong>.
+      </p>
+    </div>
+  );
+}
+
+function PrizeCard({ prize, onCelebrate }) {
+  const cls = 'pcard pcard--' + prize.key + (prize.won ? ' is-won' : '');
+  return (
+    <button className={cls} onClick={(e) => onCelebrate(prize, e)}>
+      <div className="pcard-name mono">{prize.label}</div>
+      <div className="pcard-leader disp">{prize.leader}</div>
+      <div className="pcard-team">
+        <span className="pcard-flag">{prize.flag}</span>{prize.team}
+      </div>
+      <div className="pcard-amt disp">£{prize.amount}</div>
+      <div className="pcard-foot">
+        {prize.won
+          ? <span className="pcard-pill pcard-pill--won mono">LOCKED IN</span>
+          : <span className="pcard-pill mono">{prize.share} OF POT</span>}
+        <span className="pcard-note">{prize.note}</span>
+      </div>
+    </button>
+  );
+}
+
+function PrizeBoard({ prizes, onCelebrate }) {
+  return (
+    <section className="wrap board-sec">
+      <SectionHead n="01" title="Who's winning the money" sub="Prize leaders right now" />
+      <div className="pboard">
+        {prizes.map(p => <PrizeCard key={p.key} prize={p} onCelebrate={onCelebrate} />)}
+      </div>
+    </section>
+  );
+}
+
+function SectionHead({ n, title, sub }) {
+  return (
+    <div className="shead">
+      <span className="shead-n disp">{n}</span>
+      <div className="shead-txt">
+        <h2 className="shead-title disp">{title}</h2>
+        {sub && <span className="shead-sub mono">{sub}</span>}
+      </div>
+    </div>
+  );
+}
+
+function StageTracker({ stages, animate, n, sub }) {
+  return (
+    <section className="wrap stage-sec">
+      <SectionHead n={n || '02'} title="Tournament progress"
+                   sub={sub || '64 matches · 11th June → 19th July'} />
+      <div className={'track' + (animate ? ' track--in' : '')}>
+        {stages.map((s, i) => (
+          <div key={s.key} className={'tstep tstep--' + s.state}
+               style={{ '--d': (i * 0.09) + 's' }}>
+            <div className="tstep-bar"><i /></div>
+            <div className="tstep-count disp">{s.count}</div>
+            <div className="tstep-label mono">{s.label}</div>
+            {s.state === 'current' && <div className="tstep-now mono">WE ARE HERE</div>}
+            {s.state === 'next' && <div className="tstep-now tstep-now--next mono">UP NEXT</div>}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, {
+  Masthead, Pot, StoryTicker, PrizeCard, PrizeBoard, SectionHead, StageTracker, RANK_GLYPH,
+});
+</script>
+  <script type="text/babel">// ── components-pre.jsx — pre-kickoff state (countdown, draw, prize rules) ─────
+
+function Countdown({ to }) {
+  const target = React.useMemo(() => new Date(to).getTime(), [to]);
+  const [now, setNow] = React.useState(() => Date.now());
+  React.useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  let diff = Math.max(0, target - now);
+  const d = Math.floor(diff / 86400000); diff -= d * 86400000;
+  const h = Math.floor(diff / 3600000); diff -= h * 3600000;
+  const m = Math.floor(diff / 60000); diff -= m * 60000;
+  const s = Math.floor(diff / 1000);
+  const cells = [[d, 'DAYS'], [h, 'HRS'], [m, 'MIN'], [s, 'SEC']];
+  return (
+    <div className="cd">
+      {cells.map(([n, l], i) => (
+        <React.Fragment key={l}>
+          {i > 0 && <span className="cd-sep disp">:</span>}
+          <div className="cd-cell">
+            <span className="cd-n disp">{String(n).padStart(2, '0')}</span>
+            <span className="cd-l mono">{l}</span>
+          </div>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function PreHero({ kickoff, pot, welcomeTag, welcomeText }) {
+  return (
+    <div className="wrap prehero-wrap">
+      <div className="welcome">
+        <span className="welcome-tag mono">{welcomeTag}</span>
+        <p className="welcome-txt">{welcomeText}</p>
+      </div>
+      <div className="prehero-row">
+        <Pot pot={pot} foot="5 PRIZES · ALL TO PLAY FOR" />
+        <div className="prehero">
+          <div className="prehero-kick mono">GROUP STAGE KICKS OFF IN</div>
+          <Countdown to={kickoff} />
+          <div className="prehero-when mono">11 JUNE 2026 · MEXICO CITY · 64 MATCHES TO COME</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DrawList({ participants, onPick }) {
+  const [q, setQ] = React.useState('');
+  const query = q.trim().toLowerCase();
+  const rows = query
+    ? participants.filter(p => p.team.toLowerCase().includes(query) || p.name.toLowerCase().includes(query))
+    : participants;
+  return (
+    <section className="wrap draw-sec">
+      <SectionHead n="01" title="The draw" sub="Who got who · 48 teams in the hat" />
+      <div className="draw-tools">
+        <div className="fsearch">
+          <input className="fsearch-in" placeholder="Find your team or name…"
+                 value={q} onChange={(e) => setQ(e.target.value)} />
+          {q && <button className="fsearch-x" onClick={() => setQ('')}>✕</button>}
+        </div>
+        <span className="draw-count mono">{rows.length} / {participants.length}</span>
+      </div>
+      <div className="draw-grid">
+        {rows.map(p => (
+          <button key={p.id} className="draw-card" onClick={() => onPick(p)}>
+            <span className="draw-id mono">{String(p.id).padStart(2, '0')}</span>
+            <span className="draw-name">{p.name}</span>
+            <span className="draw-arrow" aria-hidden="true">→</span>
+            <span className="draw-team">
+              <span className="draw-flag">{p.flag}</span>{p.team}
+            </span>
+          </button>
+        ))}
+        {rows.length === 0 && <div className="empty mono">No match — try another name.</div>}
+      </div>
+    </section>
+  );
+}
+
+function PreDrawer({ p, open, onClose, participants }) {
+  if (!p) return null;
+  const rivals = participants.filter(x => x.group === p.group && x.id !== p.id);
+  return (
+    <div className={'drawer-scrim' + (open ? ' is-open' : '')} onClick={onClose}>
+      <aside className={'drawer' + (open ? ' is-open' : '')} onClick={(e) => e.stopPropagation()}>
+        <button className="drawer-x" onClick={onClose} aria-label="Close">✕</button>
+        <div className="drawer-hd">
+          <div className="drawer-num mono">ENTRANT {String(p.id).padStart(2, '0')} / 48</div>
+          <h3 className="drawer-name disp">{p.name}</h3>
+          <div className="drawer-team">
+            <span className="drawer-flag">{p.flag}</span>
+            <span className="drawer-teamname disp">{p.team}</span>
+          </div>
+          <span className="predrawer-grouptag mono">GROUP {p.group}</span>
+        </div>
+
+        <div className="predrawer-rivals">
+          <div className="drun-head mono">GROUP {p.group} RIVALS</div>
+          {rivals.map(r => (
+            <div key={r.id} className="prival">
+              <span className="prival-flag">{r.flag}</span>
+              <span className="prival-team">{r.team}</span>
+              <span className="prival-who mono">{r.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="predrawer-note">
+          <span className="mono">FIRST WHISTLE</span>
+          <strong>{p.team} kick off their group stage from 11 June. Good luck!</strong>
+        </div>
+      </aside>
+    </div>
+  );
+}
+function PrizeRuleCard({ prize }) {
+  return (
+    <div className={'pcard prulecard pcard--' + prize.key}>
+      <div className="pcard-name mono">{prize.label}</div>
+      <div className="prule-amt disp">£{prize.amount}</div>
+      <div className="prule-rule">{prize.rule}</div>
+      <div className="pcard-foot">
+        <span className="pcard-pill mono">{prize.share} OF POT</span>
+      </div>
+    </div>
+  );
+}
+
+function PrizeRules({ prizes }) {
+  return (
+    <section className="wrap board-sec">
+      <SectionHead n="02" title="What's up for grabs" sub="£240 pot · 5 ways to win" />
+      <div className="pboard">
+        {prizes.map(p => <PrizeRuleCard key={p.key} prize={p} />)}
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Countdown, PreHero, DrawList, PreDrawer, PrizeRules, PrizeRuleCard });
+</script>
+  <script type="text/babel">// ── components-table.jsx — filters, participants table, detail drawer ────────
+
+const STATUS_META = {
+  active:     { label: 'Still in', cls: 'st-active' },
+  eliminated: { label: 'Knocked out', cls: 'st-out' },
+  spoon:      { label: 'Wooden Spoon', cls: 'st-spoon' },
+};
+
+const PRIZE_LABEL = {
+  winner: 'Winner · £96', runner: 'Runner-Up · £60', boot: 'Golden Boot · £48',
+  goals: 'Most Goals · £24', spoon: 'Wooden Spoon · £12',
+};
+
+function Filters({ filter, setFilter, counts, query, setQuery }) {
+  const tabs = [
+    ['all', 'All', counts.all],
+    ['active', 'Still in', counts.active],
+    ['eliminated', 'Knocked out', counts.eliminated],
+    ['prize', 'In the money', counts.prize],
+  ];
+  return (
+    <div className="filters">
+      <div className="ftabs">
+        {tabs.map(([k, label, n]) => (
+          <button key={k} className={'ftab' + (filter === k ? ' is-on' : '')}
+                  onClick={() => setFilter(k)}>
+            {label}<span className="ftab-n mono">{n}</span>
+          </button>
+        ))}
+      </div>
+      <div className="fsearch">
+        <input className="fsearch-in" placeholder="Search team or entrant…"
+               value={query} onChange={(e) => setQuery(e.target.value)} />
+        {query && <button className="fsearch-x" onClick={() => setQuery('')}>✕</button>}
+      </div>
+    </div>
+  );
+}
+
+function StatusBadge({ status }) {
+  const m = STATUS_META[status];
+  return <span className={'sbadge ' + m.cls}><i className="sdot" />{m.label}</span>;
+}
+
+function ParticipantTable({ rows, sort, setSort, onPick, topGoals }) {
+  const head = [
+    ['id', '#'], ['name', 'Entrant'], ['team', 'Team'],
+    ['goals', 'Goals'], ['status', 'Status'], ['prize', 'Prize'],
+  ];
+  const arrow = (k) => sort.key === k ? (sort.dir === 1 ? '▲' : '▼') : '';
+  return (
+    <div className="tablewrap">
+      <table className="ptable">
+        <thead>
+          <tr>
+            {head.map(([k, label]) => (
+              <th key={k} className={'col-' + k + (sort.key === k ? ' is-sorted' : '')}
+                  onClick={() => setSort(k)}>
+                <span>{label}</span><span className="th-arrow mono">{arrow(k)}</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((p) => (
+            <tr key={p.id} className={'prow prow--' + p.status} onClick={() => onPick(p)}>
+              <td className="col-id mono">{String(p.id).padStart(2, '0')}</td>
+              <td className="col-name">{p.name}</td>
+              <td className="col-team">
+                <span className={'ttag ttag--' + p.status}>
+                  <span className="tflag">{p.flag}</span>{p.team}
+                </span>
+              </td>
+              <td className="col-goals">
+                <span className={'gbadge mono' + (p.goals === topGoals ? ' is-top' : '')}>
+                  {p.goals}
+                </span>
+              </td>
+              <td className="col-status"><StatusBadge status={p.status} /></td>
+              <td className="col-prize">
+                {p.prizeKey
+                  ? <span className={'ptag ptag--' + p.prizeKey + (p.status==='spoon'||p.prizeKey==='goals'?' is-won':'')}>{PRIZE_LABEL[p.prizeKey]}</span>
+                  : <span className="ptag-none mono">—</span>}
+              </td>
+            </tr>
+          ))}
+          {rows.length === 0 && (
+            <tr><td colSpan="6" className="empty mono">No entrants match that.</td></tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Build a plausible "run" timeline for the detail drawer from the seed data.
+function buildRun(p) {
+  const steps = [
+    { stage: 'Draw', text: `Drew ${p.team}`, state: 'done' },
+    { stage: 'Group ' + p.group, text: `Finished ${p.finish} · ${p.goals} goals scored`,
+      state: 'done' },
+  ];
+  if (p.status === 'active') {
+    steps.push({ stage: 'Round of 16', text: 'In the hat — fixture to come', state: 'current' });
+    steps.push({ stage: 'Quarter-Finals', text: 'Locked', state: 'todo' });
+  } else if (p.status === 'spoon') {
+    steps.push({ stage: 'Knocked out', text: 'Bottom of the group — Wooden Spoon', state: 'out' });
+  } else {
+    const f = p.finish;
+    steps.push({ stage: 'Knocked out', text: `${f} in Group ${p.group} — didn't advance`, state: 'out' });
+  }
+  return steps;
+}
+
+function DetailDrawer({ p, open, onClose, topGoals }) {
+  if (!p) return null;
+  const run = buildRun(p);
+  const inMoney = !!p.prizeKey;
+  return (
+    <div className={'drawer-scrim' + (open ? ' is-open' : '')} onClick={onClose}>
+      <aside className={'drawer' + (open ? ' is-open' : '')} onClick={(e) => e.stopPropagation()}>
+        <button className="drawer-x" onClick={onClose} aria-label="Close">✕</button>
+        <div className="drawer-hd">
+          <div className="drawer-num mono">ENTRANT {String(p.id).padStart(2, '0')} / 48</div>
+          <h3 className="drawer-name disp">{p.name}</h3>
+          <div className="drawer-team">
+            <span className="drawer-flag">{p.flag}</span>
+            <span className="drawer-teamname disp">{p.team}</span>
+          </div>
+          <StatusBadge status={p.status} />
+        </div>
+
+        <div className="drawer-stats">
+          <div className="dstat"><span className="dstat-n disp">{p.goals}</span><span className="dstat-l mono">GROUP GOALS</span></div>
+          <div className="dstat"><span className="dstat-n disp">{p.group}</span><span className="dstat-l mono">GROUP</span></div>
+          <div className="dstat"><span className="dstat-n disp">{p.finish}</span><span className="dstat-l mono">FINISH</span></div>
+          <div className="dstat"><span className="dstat-n disp">£{p.stake}</span><span className="dstat-l mono">STAKE</span></div>
+        </div>
+
+        {inMoney && (
+          <div className={'drawer-prize ptag--' + p.prizeKey}>
+            <span className="mono">IN THE MONEY</span>
+            <strong>{PRIZE_LABEL[p.prizeKey]}</strong>
+          </div>
+        )}
+
+        <div className="drawer-run">
+          <div className="drun-head mono">THE RUN</div>
+          {run.map((s, i) => (
+            <div key={i} className={'drun-step drun-' + s.state}>
+              <span className="drun-dot" />
+              <div className="drun-body">
+                <div className="drun-stage">{s.stage}</div>
+                <div className="drun-text mono">{s.text}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+Object.assign(window, {
+  Filters, ParticipantTable, DetailDrawer, StatusBadge, buildRun,
+  STATUS_META, PRIZE_LABEL,
+});
+</script>
+  <script type="text/babel">// ── app.jsx — The Sweep '26 ──────────────────────────────────────────────────
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "title": "THE SWEEP",
+  "theme": "modernist",
+  "appearance": "light",
+  "displayFont": "Big Shoulders Display",
+  "density": "regular",
+  "stage": "auto",
+  "halftone": true,
+  "confetti": true,
+  "welcomeTag": "YOU'RE IN",
+  "welcomeText": "The draw is done. The teams are set. Somewhere in this list is the person who's walking away with £96. Is it you? Probably not. But maybe. 👀"
+}/*EDITMODE-END*/;
+
+const THEME_OPTS = [
+  { value: 'hosts',     label: 'Hosts (USA · CAN · MEX)' },
+  { value: 'panini',    label: 'Panini (Mexico ’70)' },
+  { value: 'modernist', label: 'Modernist (España ’82)' },
+  { value: 'night',     label: 'Floodlit (night)' },
+];
+const FONT_OPTS = [
+  { value: 'Big Shoulders Display', label: 'Big Shoulders (athletic)' },
+  { value: 'Anton', label: 'Anton (poster)' },
+  { value: 'Archivo Black', label: 'Archivo Black (bold)' },
+  { value: 'Oswald', label: 'Oswald (condensed)' },
+];
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [D, setD] = React.useState(window.SWEEP);
+
+  // Live API polling — fetches fresh data on load and every 60s during the tournament
+  React.useEffect(() => {
+    if (typeof SWEEP_API === 'undefined') return;
+    let alive = true;
+    const load = () => {
+      SWEEP_API.fetchSweep()
+        .then(data => { if (alive) setD(data); })
+        .catch(() => {}); // silently fall back to static data on error
+    };
+    load();
+    const id = setInterval(load, 60000);
+    return () => { alive = false; clearInterval(id); };
+  }, []);
+
+  // Pre-kickoff vs live: auto by date, overridable in Tweaks.
+  const [nowTs, setNowTs] = React.useState(() => Date.now());
+  React.useEffect(() => {
+    const id = setInterval(() => setNowTs(Date.now()), 30000);
+    return () => clearInterval(id);
+  }, []);
+  const kickTs = React.useMemo(() => new Date(D.KICKOFF).getTime(), [D]);
+  const phase = t.stage === 'pre' ? 'pre'
+              : t.stage === 'live' ? 'live'
+              : (nowTs < kickTs ? 'pre' : 'live');
+
+  const [filter, setFilter] = React.useState('all');
+  const [query, setQuery] = React.useState('');
+  const [sort, setSortState] = React.useState({ key: 'id', dir: 1 });
+  const [picked, setPicked] = React.useState(null);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [trackIn, setTrackIn] = React.useState(false);
+
+  // apply theme/appearance/font to <html>
+  React.useEffect(() => {
+    const r = document.documentElement;
+    r.setAttribute('data-theme', t.theme);
+    r.setAttribute('data-appearance', t.appearance);
+    r.style.setProperty('--font-display', `'${t.displayFont}', sans-serif`);
+    r.setAttribute('data-density', t.density);
+    r.style.setProperty('--halftone-on', t.halftone ? '1' : '0');
+    document.body.style.setProperty('--ht-opacity', t.halftone ? '.9' : '0');
+  }, [t.theme, t.appearance, t.displayFont, t.density, t.halftone]);
+
+  // animate the tracker in once on mount
+  React.useEffect(() => {
+    const id = setTimeout(() => setTrackIn(true), 250);
+    return () => clearTimeout(id);
+  }, []);
+
+  const topGoals = React.useMemo(
+    () => Math.max(...D.participants.map(p => p.goals)), [D]);
+
+  // Pre-kickoff: nothing's played yet — group stage is "up next", rest upcoming.
+  const preStages = React.useMemo(
+    () => D.STAGES.map((s, i) => ({ ...s, state: i === 0 ? 'next' : 'todo' })), [D]);
+
+  const counts = React.useMemo(() => ({
+    all: D.participants.length,
+    active: D.participants.filter(p => p.status === 'active').length,
+    eliminated: D.participants.filter(p => p.status !== 'active').length,
+    prize: D.participants.filter(p => p.prizeKey).length,
+  }), [D]);
+
+  const rows = React.useMemo(() => {
+    let r = D.participants.slice();
+    if (filter === 'active') r = r.filter(p => p.status === 'active');
+    else if (filter === 'eliminated') r = r.filter(p => p.status !== 'active');
+    else if (filter === 'prize') r = r.filter(p => p.prizeKey);
+    const q = query.trim().toLowerCase();
+    if (q) r = r.filter(p => p.team.toLowerCase().includes(q) || p.name.toLowerCase().includes(q));
+    const dir = sort.dir;
+    r.sort((a, b) => {
+      let av, bv;
+      switch (sort.key) {
+        case 'name': av = a.id; bv = b.id; break;
+        case 'team': av = a.team; bv = b.team; break;
+        case 'goals': av = a.goals; bv = b.goals; break;
+        case 'status': av = a.status; bv = b.status; break;
+        case 'prize': av = a.prizeKey || 'zzz'; bv = b.prizeKey || 'zzz'; break;
+        default: av = a.id; bv = b.id;
+      }
+      if (av < bv) return -1 * dir;
+      if (av > bv) return 1 * dir;
+      return a.id - b.id;
+    });
+    return r;
+  }, [D, filter, query, sort]);
+
+  const setSort = (key) => {
+    setSortState(s => s.key === key ? { key, dir: -s.dir } : { key, dir: key === 'goals' ? -1 : 1 });
+  };
+
+  const wonKeys = React.useMemo(() => D.PRIZES.filter(p => p.won).map(p => p.key), [D]);
+
+  const pick = (p) => {
+    setPicked(p);
+    requestAnimationFrame(() => setDrawerOpen(true));
+    // Celebrate locked-in prize holders as their drawer slides in (live only).
+    if (phase === 'live' && t.confetti && p.prizeKey && wonKeys.includes(p.prizeKey)) {
+      setTimeout(() => {
+        const x = window.innerWidth - Math.min(220, window.innerWidth * 0.46);
+        window.fireConfetti({ x, y: window.innerHeight * 0.32, count: 130 });
+      }, 340);
+    }
+  };
+  const closeDrawer = () => { setDrawerOpen(false); setTimeout(() => setPicked(null), 280); };
+
+  // Tapping a prize card opens that prize leader's detail drawer.
+  const openPrizeLeader = (prize) => {
+    const person = D.participants.find(p => p.name === prize.leader);
+    if (person) pick(person);
+  };
+
+  // one-off pot celebration on first view
+  React.useEffect(() => {
+    if (!t.confetti) return;
+    const seen = sessionStorage.getItem('sweep-welcomed');
+    if (seen) return;
+    sessionStorage.setItem('sweep-welcomed', '1');
+    const id = setTimeout(() => window.fireConfetti({ count: 110 }), 700);
+    return () => clearTimeout(id);
+  }, []);
+
+  return (
+    <div className="app" data-phase={phase}>
+      <Masthead title={t.title}
+                sub={phase === 'pre'
+                  ? '48 ENTRANTS · £5 A TEAM · KICK-OFF 11 JUNE'
+                  : '48 ENTRANTS · £5 A TEAM · ROUND OF 16'} />
+
+      {phase === 'pre' ? (
+        <React.Fragment>
+        <PreHero kickoff={D.KICKOFF} pot={D.POT}
+                 welcomeTag={t.welcomeTag} welcomeText={t.welcomeText} />
+          <DrawList participants={D.participants} onPick={pick} />
+          <PrizeRules prizes={D.PRIZES} />
+          <StageTracker stages={preStages} animate={trackIn} n="03"
+                        sub="64 matches · the road from groups to glory" />
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <div className="wrap hero">
+            <Pot pot={D.POT} />
+            <StoryTicker />
+          </div>
+
+          <PrizeBoard prizes={D.PRIZES} onCelebrate={openPrizeLeader} />
+
+          <StageTracker stages={D.STAGES} animate={trackIn} />
+
+          <section className="wrap people-sec">
+            <SectionHead n="03" title="All 48 entrants" sub="Tap a row to see their run" />
+            <Filters filter={filter} setFilter={setFilter} counts={counts}
+                     query={query} setQuery={setQuery} />
+            <ParticipantTable rows={rows} sort={sort} setSort={setSort}
+                              onPick={pick} topGoals={topGoals} />
+          </section>
+        </React.Fragment>
+      )}
+
+      <footer className="foot">
+        <span className="mono">{phase === 'pre'
+          ? "THE SWEEP '26 · GOOD LUCK · GAMES BEGIN 11 JUNE 2026"
+          : "THE SWEEP '26 · DEMO DATA · LIVE SCORES COMING SOON"}</span>
+      </footer>
+
+      {phase === 'live' &&
+        <DetailDrawer p={picked} open={drawerOpen} onClose={closeDrawer} topGoals={topGoals} />}
+      {phase === 'pre' &&
+        <PreDrawer p={picked} open={drawerOpen} onClose={closeDrawer} participants={D.participants} />}
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Direction" />
+        <TweakRadio label="Theme" value={t.theme} options={THEME_OPTS}
+                    onChange={(v) => setTweak('theme', v)} />
+        <TweakSection label="Type" />
+        <TweakSelect label="Display font" value={t.displayFont} options={FONT_OPTS}
+                     onChange={(v) => setTweak('displayFont', v)} />
+        <TweakSection label="Layout" />
+        <TweakRadio label="Stage" value={t.stage}
+                    options={[{value:'auto',label:'Auto'},{value:'pre',label:'Pre-kick'},{value:'live',label:'Live'}]}
+                    onChange={(v) => setTweak('stage', v)} />
+        <TweakRadio label="Density" value={t.density}
+                    options={['compact','regular','comfy']}
+                    onChange={(v) => setTweak('density', v)} />
+        <TweakToggle label="Halftone texture" value={t.halftone}
+                     onChange={(v) => setTweak('halftone', v)} />
+        <TweakToggle label="Confetti" value={t.confetti}
+                     onChange={(v) => setTweak('confetti', v)} />
+        <TweakSection label="Title" />
+        <TweakText label="Masthead" value={t.title}
+                   onChange={(v) => setTweak('title', v)} />
+        <TweakSection label="Pre-kickoff banner" />
+        <TweakText label="Banner tag" value={t.welcomeTag}
+                   onChange={(v) => setTweak('welcomeTag', v)} />
+        <TweakText label="Welcome message" value={t.welcomeText} multiline
+                   onChange={(v) => setTweak('welcomeText', v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
