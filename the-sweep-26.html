@@ -1464,7 +1464,6 @@ function Masthead({ title, sub }) {
         <div className="mast-left">
           <div className="mast-kicker mono">FIFA World Cup · 2026 · USA · CAN · MEX</div>
           <h1 className="mast-title disp">{title}</h1>
-          <div className="mast-sub mono">{sub}</div>
         </div>
       </div>
       <div className="mast-stripe" aria-hidden="true">
@@ -1913,14 +1912,13 @@ function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [D, setD] = React.useState(window.SWEEP);
 
-  // Live API polling — fetches fresh data on load and every 60s during the tournament
   React.useEffect(() => {
     if (typeof SWEEP_API === 'undefined') return;
     let alive = true;
     const load = () => {
       SWEEP_API.fetchSweep()
         .then(data => { if (alive) setD(data); })
-        .catch(() => {}); // silently fall back to static data on error
+        .catch(() => {});
     };
     load();
     const id = setInterval(load, 60000);
