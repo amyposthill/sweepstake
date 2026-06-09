@@ -405,6 +405,30 @@ body::before{
 .welcome-txt strong{ color:var(--accent); }
 
 .draw-sec{ padding-bottom:6px; }
+
+/* ============================ GROUPS SECTION ============================== */
+.groups-sec{ padding-bottom:6px; }
+.groups-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; }
+.gcard{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-card); padding:12px 14px; }
+.gcard-label{ font-size:11px; letter-spacing:.12em; color:var(--accent); margin-bottom:10px; }
+.gcard-row{ display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--line); }
+.gcard-row:last-child{ border-bottom:none; }
+.gcard-flag{ font-size:18px; width:22px; flex-shrink:0; }
+.gcard-team{ font-size:13px; font-weight:600; color:var(--ink); flex:1; }
+.gcard-owner{ font-size:11px; color:var(--ink-3); font-family:var(--font-mono); white-space:nowrap; }
+.gcard-dot{ width:20px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.gdot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.gdot-pending{ border:1.5px solid var(--line); background:transparent; }
+.gdot-active{ border:1.5px solid var(--accent-3,#e6b422); background:transparent; }
+.gdot-through{ background:var(--win); }
+.gdot-out{ border:1.5px solid var(--out); background:transparent; }
+.gcard-row.row-through .gcard-team{ color:var(--win); }
+.gcard-row.row-through .gcard-owner{ color:var(--win); opacity:.75; }
+.gcard-row.row-out .gcard-flag{ opacity:.35; }
+.gcard-row.row-out .gcard-team{ color:var(--ink-3); text-decoration:line-through; text-decoration-color:var(--ink-3); }
+.gcard-row.row-out .gcard-owner{ color:var(--ink-3); text-decoration:line-through; text-decoration-color:var(--ink-3); opacity:.6; }
+.glegend{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+.glegend-item{ display:flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10px; color:var(--ink-3); letter-spacing:.06em; }
 .draw-tools{ display:flex; align-items:center; justify-content:space-between;
   gap:14px; margin-bottom:16px; flex-wrap:wrap; }
 .draw-count{ font-size:12px; color:var(--ink-3); letter-spacing:.08em; }
@@ -1624,7 +1648,7 @@ function DrawList({ participants, onPick }) {
     : participants;
   return (
     <section className="wrap draw-sec">
-      <SectionHead n="01" title="The draw" sub="Who got who · 48 teams in the hat" />
+      <SectionHead n="03" title="The draw" sub="Who got who · 48 teams in the hat" />
       <div className="draw-tools">
         <div className="fsearch">
           <input className="fsearch-in" placeholder="Find your team or name…"
@@ -1710,7 +1734,80 @@ function PrizeRules({ prizes }) {
   );
 }
 
-Object.assign(window, { Countdown, PreHero, DrawList, PreDrawer, PrizeRules, PrizeRuleCard });
+function GroupsSection({ participants, phase }) {
+  const byGroup = React.useMemo(() => {
+    const map = {};
+    participants.forEach(p => {
+      if (!map[p.group]) map[p.group] = [];
+      map[p.group].push(p);
+    });
+    return map;
+  }, [participants]);
+
+  const groups = Object.keys(byGroup).sort();
+  const isLive = phase === 'live';
+
+  function rowState(p) {
+    if (!isLive) return 'pending';
+    if (p.status === 'eliminated') return 'out';
+    if (p.finish && p.finish !== '—') return 'through';
+    return 'active';
+  }
+
+  function groupStatus(teams) {
+    if (!isLive) return null;
+    const states = teams.map(rowState);
+    if (states.every(s => s === 'through' || s === 'out')) return 'COMPLETE';
+    if (states.some(s => s === 'out' || s === 'through' || s === 'active')) return 'IN PROGRESS';
+    return null;
+  }
+
+  const DOT = {
+    pending: <span className="gdot gdot-pending" />,
+    active:  <span className="gdot gdot-active" />,
+    through: <span className="gdot gdot-through" />,
+    out:     <span className="gdot gdot-out" />,
+  };
+
+  return (
+    <section className="wrap groups-sec">
+      <SectionHead n="01" title="The Groups" sub="12 groups · 4 teams each · top 2 advance" />
+      {isLive && (
+        <div className="glegend">
+          <div className="glegend-item">{DOT.through}<span>THROUGH</span></div>
+          <div className="glegend-item">{DOT.active}<span>STILL PLAYING</span></div>
+          <div className="glegend-item">{DOT.out}<span>ELIMINATED</span></div>
+        </div>
+      )}
+      <div className="groups-grid">
+        {groups.map(letter => {
+          const teams = byGroup[letter];
+          const status = groupStatus(teams);
+          return (
+            <div key={letter} className="gcard">
+              <div className="gcard-label mono">
+                GROUP {letter}{status ? ` — ${status}` : ''}
+              </div>
+              {teams.map(p => {
+                const state = rowState(p);
+                return (
+                  <div key={p.id} className={`gcard-row row-${state}`}>
+                    <span className="gcard-flag">{p.flag}</span>
+                    <span className="gcard-team">{p.team}</span>
+                    <span className="gcard-owner">{p.name}</span>
+                    {isLive && <span className="gcard-dot">{DOT[state]}</span>}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Countdown, PreHero, DrawList, PreDrawer, PrizeRules, PrizeRuleCard, GroupsSection });
 </script>
   <script type="text/babel">// ── components-table.jsx — filters, participants table, detail drawer ────────
 
@@ -2045,9 +2142,10 @@ function App() {
         <React.Fragment>
         <PreHero kickoff={D.KICKOFF} pot={D.POT}
                  welcomeTag={t.welcomeTag} welcomeText={t.welcomeText} />
-          <DrawList participants={D.participants} onPick={pick} />
+          <GroupsSection participants={D.participants} phase={phase} />
           <PrizeRules prizes={D.PRIZES} />
-          <StageTracker stages={preStages} animate={trackIn} n="03"
+          <DrawList participants={D.participants} onPick={pick} />
+          <StageTracker stages={preStages} animate={trackIn} n="04"
                         sub="64 matches · the road from groups to glory" />
         </React.Fragment>
       ) : (
@@ -2058,6 +2156,8 @@ function App() {
           </div>
 
           <PrizeBoard prizes={D.PRIZES} onCelebrate={openPrizeLeader} />
+
+          <GroupsSection participants={D.participants} phase={phase} />
 
           <StageTracker stages={D.STAGES} animate={trackIn} />
 
