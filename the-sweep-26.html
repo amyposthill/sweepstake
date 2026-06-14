@@ -841,7 +841,7 @@ const SWEEP_API = (function () {
         ...p,
         goals:    stats.goals    ?? 0,
         status:   isSpoon ? 'spoon' : (stats.status ?? 'active'),
-        group:    stats.group    ?? p.group,
+        group:    (stats.group && stats.group !== '?') ? stats.group : p.group,
         finish:   stats.finish   ?? '—',
         prizeKey: p.team === bootTeam      ? 'boot'   :
                   p.team === mostGoalsTeam ? 'goals'  :
