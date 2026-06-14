@@ -2245,13 +2245,6 @@ function App() {
         </React.Fragment>
       )}
 
-      <footer className="foot">
-        <span className="mono">{phase === 'pre'
-          ? "THE SWEEP '26 · GOOD LUCK · GAMES BEGIN 11 JUNE 2026"
-          : apiStatus === 'ok' ? "THE SWEEP '26 · LIVE DATA · UPDATES EVERY 60 SECONDS"
-          : apiStatus === 'error' ? `THE SWEEP '26 · API ERROR: ${apiError}`
-          : "THE SWEEP '26 · LOADING LIVE DATA…"}</span>
-      </footer>
 
       {phase === 'live' &&
         <DetailDrawer p={picked} open={drawerOpen} onClose={closeDrawer} topGoals={topGoals} />}
