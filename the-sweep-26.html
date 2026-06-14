@@ -910,8 +910,8 @@ const SWEEP_API = (function () {
   // Main fetch — call this to get a live SWEEP object
   async function fetchSweep() {
     const [standingsData, scorersData] = await Promise.all([
-      fetchJSON(`${BASE}/competitions/${COMP}/standings`),
-      fetchJSON(`${BASE}/competitions/${COMP}/scorers?limit=10`),
+      fetchJSON(`${BASE}/competitions/${COMP}/standings?season=2026`),
+      fetchJSON(`${BASE}/competitions/${COMP}/scorers?limit=10&season=2026`),
     ]);
 
     const matchday   = standingsData.season?.currentMatchday ?? 0;
@@ -2008,14 +2008,16 @@ const FONT_OPTS = [
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [D, setD] = React.useState(window.SWEEP);
+  const [apiStatus, setApiStatus] = React.useState('loading'); // 'loading' | 'ok' | 'error'
+  const [apiError, setApiError] = React.useState(null);
 
   React.useEffect(() => {
-    if (typeof SWEEP_API === 'undefined') return;
+    if (typeof SWEEP_API === 'undefined') { setApiStatus('error'); setApiError('SWEEP_API not defined'); return; }
     let alive = true;
     const load = () => {
       SWEEP_API.fetchSweep()
-        .then(data => { if (alive) setD(data); })
-        .catch(() => {});
+        .then(data => { if (alive) { setD(data); setApiStatus('ok'); setApiError(null); } })
+        .catch(err => { if (alive) { setApiStatus('error'); setApiError(err?.message || String(err)); } });
     };
     load();
     const id = setInterval(load, 60000);
@@ -2174,7 +2176,9 @@ function App() {
       <footer className="foot">
         <span className="mono">{phase === 'pre'
           ? "THE SWEEP '26 · GOOD LUCK · GAMES BEGIN 11 JUNE 2026"
-          : "THE SWEEP '26 · DEMO DATA · LIVE SCORES COMING SOON"}</span>
+          : apiStatus === 'ok' ? "THE SWEEP '26 · LIVE DATA · UPDATES EVERY 60 SECONDS"
+          : apiStatus === 'error' ? `THE SWEEP '26 · API ERROR: ${apiError}`
+          : "THE SWEEP '26 · LOADING LIVE DATA…"}</span>
       </footer>
 
       {phase === 'live' &&
