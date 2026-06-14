@@ -805,12 +805,12 @@ const SWEEP_API = (function () {
       group.table.forEach(row => {
         const name = normaliseName(row.team.name);
         const isEliminated = !row.qualified && standingsData.season?.currentMatchday >= 3;
+        const isThrough = row.qualified === true;
         teamStats[name] = {
           goals:    row.goalsFor,
-          status:   row.qualified ? 'active' : (isEliminated ? 'eliminated' : 'active'),
+          status:   isThrough ? 'through' : (isEliminated ? 'eliminated' : 'active'),
           group:    groupLetter,
-          finish:   row.position === 1 ? '1st' : row.position === 2 ? '2nd' :
-                    row.position === 3 ? '3rd' : '4th',
+          finish:   '—',  // only set when advancing to a knockout round
           position: row.position,
         };
         if (isEliminated && row.goalsFor < worstGoals) {
@@ -1511,14 +1511,79 @@ function Pot({ pot, foot }) {
   );
 }
 
-function StoryTicker() {
+function StoryTicker({ participants, prizes }) {
+  const [idx, setIdx]       = React.useState(0);
+  const [visible, setVisible] = React.useState(true);
+
+  const stories = React.useMemo(() => {
+    const out = [];
+    const boot  = (prizes || []).find(p => p.key === 'boot');
+    const goals = (prizes || []).find(p => p.key === 'goals');
+    const spoon = (prizes || []).find(p => p.key === 'spoon');
+    const ps    = participants || [];
+
+    // Golden Boot
+    if (boot && boot.leader && boot.leader !== 'TBD') {
+      const hasNote = boot.note && !boot.note.includes('June');
+      if (hasNote) {
+        out.push(<React.Fragment><strong>{boot.note}</strong> — and {boot.leader} holds the Golden Boot. That £48 is looking very real.</React.Fragment>);
+      }
+      out.push(<React.Fragment><strong>{boot.leader}'s {boot.team}</strong> are in the Golden Boot race. Nobody else should get comfortable.</React.Fragment>);
+    }
+
+    // Most group goals
+    if (goals && goals.leader && goals.leader !== 'TBD') {
+      const maxG = Math.max(...ps.map(p => p.goals || 0));
+      if (maxG > 0) {
+        out.push(<React.Fragment><strong>{goals.leader}'s {goals.team}</strong> have {maxG} group goals. {goals.leader} is quietly confident. Everyone else should be worried.</React.Fragment>);
+        out.push(<React.Fragment>Nobody panic but <strong>{goals.leader}'s {goals.team}</strong> have scored {maxG} group goals. They might actually do this.</React.Fragment>);
+      }
+    }
+
+    // Wooden spoon
+    if (spoon && spoon.leader && spoon.leader !== 'TBD') {
+      if (spoon.won) {
+        out.push(<React.Fragment>The £12 Wooden Spoon is confirmed. <strong>{spoon.leader}'s {spoon.team}</strong> are out and bottom of the pile. 🥄</React.Fragment>);
+      } else {
+        out.push(<React.Fragment><strong>{spoon.leader}'s {spoon.team}</strong> are bottom of the pile right now. The Wooden Spoon is circling. 🥄</React.Fragment>);
+      }
+    }
+
+    // Teams yet to score
+    const blanks = ps.filter(p => (p.goals || 0) === 0 && p.status === 'active');
+    if (blanks.length > 0 && blanks.length <= 8) {
+      const z = blanks[0];
+      out.push(<React.Fragment><strong>{z.name}'s {z.team}</strong> are yet to score. It is not looking great.</React.Fragment>);
+    }
+
+    // Eliminated
+    const out_teams = ps.filter(p => p.status === 'eliminated' || p.status === 'spoon');
+    if (out_teams.length > 0) {
+      const e = out_teams[0];
+      out.push(<React.Fragment><strong>{e.team}</strong> are out. {e.name} is not having a good time.</React.Fragment>);
+    }
+
+    if (out.length === 0) {
+      out.push(<React.Fragment>The group stage is underway. <strong>£240 on the line.</strong> Anything could happen.</React.Fragment>);
+    }
+
+    return out;
+  }, [participants, prizes]);
+
+  React.useEffect(() => {
+    if (stories.length <= 1) return;
+    const id = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => { setIdx(i => (i + 1) % stories.length); setVisible(true); }, 400);
+    }, 7000);
+    return () => clearInterval(id);
+  }, [stories.length]);
+
   return (
     <div className="story">
       <span className="story-tag mono">LATEST</span>
-      <p className="story-txt">
-        We're into the <strong>Round of 16</strong>. Spain are flying with nine group
-        goals, Mbappé's France lead the Golden Boot race, and Bolivia bow out bottom of
-        the pile — the Wooden Spoon belongs to <strong>Participant&nbsp;44</strong>.
+      <p className="story-txt" style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.4s ease' }}>
+        {stories[idx]}
       </p>
     </div>
   );
@@ -1750,8 +1815,8 @@ function GroupsSection({ participants, phase }) {
 
   function rowState(p) {
     if (!isLive) return 'pending';
-    if (p.status === 'eliminated') return 'out';
-    if (p.finish && p.finish !== '—') return 'through';
+    if (p.status === 'eliminated' || p.status === 'spoon') return 'out';
+    if (p.status === 'through') return 'through';
     return 'active';
   }
 
@@ -2155,7 +2220,7 @@ function App() {
         <React.Fragment>
           <div className="wrap hero">
             <Pot pot={D.POT} />
-            <StoryTicker />
+            <StoryTicker participants={D.participants} prizes={D.PRIZES} />
           </div>
 
           <PrizeBoard prizes={D.PRIZES} onCelebrate={openPrizeLeader} />
