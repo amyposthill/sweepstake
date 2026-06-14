@@ -746,6 +746,7 @@ const SWEEP_API = (function () {
   const BASE      = 'https://api.football-data.org/v4';
   const COMP      = 'WC';  // FIFA World Cup 2026 competition code
   const HEADERS   = { 'X-Auth-Token': API_KEY };
+  const PROXY     = 'https://corsproxy.io/?';
 
   // Map football-data.org team names → our participant team names
   const NAME_MAP = {
@@ -786,8 +787,8 @@ const SWEEP_API = (function () {
   }
 
   async function fetchJSON(url) {
-    const res = await fetch(url, { headers: HEADERS });
-    if (!res.ok) throw new Error(`API error ${res.status}: ${url}`);
+    const res = await fetch(PROXY + encodeURIComponent(url), { headers: HEADERS });
+    if (!res.ok) throw new Error(`API error ${res.status}`);
     return res.json();
   }
 
