@@ -1976,17 +1976,21 @@ function ParticipantTable({ rows, sort, setSort, onPick, topGoals }) {
 function buildRun(p) {
   const steps = [
     { stage: 'Draw', text: `Drew ${p.team}`, state: 'done' },
-    { stage: 'Group ' + p.group, text: `Finished ${p.finish} · ${p.goals} goals scored`,
-      state: 'done' },
   ];
   if (p.status === 'active') {
+    steps.push({ stage: 'Group ' + p.group, text: `Group stage underway · ${p.goals} goal${p.goals === 1 ? '' : 's'} scored`, state: 'current' });
+    steps.push({ stage: 'Round of 16', text: 'Locked', state: 'todo' });
+    steps.push({ stage: 'Quarter-Finals', text: 'Locked', state: 'todo' });
+  } else if (p.status === 'through') {
+    steps.push({ stage: 'Group ' + p.group, text: `Finished ${p.finish} · ${p.goals} goal${p.goals === 1 ? '' : 's'} scored`, state: 'done' });
     steps.push({ stage: 'Round of 16', text: 'In the hat — fixture to come', state: 'current' });
     steps.push({ stage: 'Quarter-Finals', text: 'Locked', state: 'todo' });
   } else if (p.status === 'spoon') {
+    steps.push({ stage: 'Group ' + p.group, text: `Finished ${p.finish} · ${p.goals} goal${p.goals === 1 ? '' : 's'} scored`, state: 'done' });
     steps.push({ stage: 'Knocked out', text: 'Bottom of the group — Wooden Spoon', state: 'out' });
   } else {
-    const f = p.finish;
-    steps.push({ stage: 'Knocked out', text: `${f} in Group ${p.group} — didn't advance`, state: 'out' });
+    steps.push({ stage: 'Group ' + p.group, text: `Finished ${p.finish} · ${p.goals} goal${p.goals === 1 ? '' : 's'} scored`, state: 'done' });
+    steps.push({ stage: 'Knocked out', text: `${p.finish} in Group ${p.group} — didn't advance`, state: 'out' });
   }
   return steps;
 }
