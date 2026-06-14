@@ -1541,11 +1541,13 @@ function StoryTicker({ participants, prizes }) {
     }
 
     // Wooden spoon
-    if (spoon && spoon.leader && spoon.leader !== 'TBD') {
-      if (spoon.won) {
+    if (spoon) {
+      if (spoon.won && spoon.leader && spoon.leader !== 'TBD') {
         out.push(<React.Fragment>The £12 Wooden Spoon is confirmed. <strong>{spoon.leader}'s {spoon.team}</strong> are out and bottom of the pile. 🥄</React.Fragment>);
-      } else {
+      } else if (spoon.leader && spoon.leader !== 'TBD') {
         out.push(<React.Fragment><strong>{spoon.leader}'s {spoon.team}</strong> are bottom of the pile right now. The Wooden Spoon is circling. 🥄</React.Fragment>);
+      } else {
+        out.push(<React.Fragment>The £12 <strong>Wooden Spoon</strong> is still up for grabs. Someone's going home with it — we just don't know who yet. 🥄</React.Fragment>);
       }
     }
 
@@ -1612,7 +1614,7 @@ function PrizeCard({ prize, onCelebrate }) {
 function PrizeBoard({ prizes, onCelebrate }) {
   return (
     <section className="wrap board-sec">
-      <SectionHead n="01" title="Who's winning the money" sub="Prize leaders right now" />
+      <SectionHead n="01" title="Who's currently winning the money" sub="Prize leaders right now" />
       <div className="pboard">
         {prizes.map(p => <PrizeCard key={p.key} prize={p} onCelebrate={onCelebrate} />)}
       </div>
