@@ -304,13 +304,10 @@ body::before{
 .st-spoon .sdot{ background:var(--spoon); }
 .st-active{ color:var(--win); }
 .st-spoon{ color:var(--spoon); }
-.ptag{ display:inline-block; font-size:11px; font-family:var(--font-mono);
-  letter-spacing:.04em; padding:4px 9px; border-radius:3px; border:1.5px solid var(--line);
+.ptag{ display:inline-block; font-size:10px; font-family:var(--font-mono);
+  letter-spacing:.1em; padding:4px 9px; border-radius:3px; border:1.5px solid var(--line);
   color:var(--ink-2); }
 .ptag.is-won{ background:var(--win); border-color:var(--win); color:#fff; }
-.ptag--winner{ border-color:var(--gold); color:var(--gold); }
-.ptag--runner,.ptag--boot{ border-color:var(--accent); color:var(--accent); }
-.ptag--spoon{ background:var(--spoon); border-color:var(--spoon); color:#fff; }
 .ptag-none{ color:var(--ink-3); }
 .empty{ text-align:center; padding:40px; color:var(--ink-3); letter-spacing:.1em; }
 
@@ -1961,7 +1958,7 @@ function ParticipantTable({ rows, sort, setSort, onPick, topGoals }) {
               <td className="col-status"><StatusBadge status={p.status} /></td>
               <td className="col-prize">
                 {p.prizeKey
-                  ? <span className={'ptag ptag--' + p.prizeKey + (p.status==='spoon'||p.prizeKey==='goals'?' is-won':'')}>{PRIZE_LABEL[p.prizeKey]}</span>
+                  ? <span className={'ptag' + (p.status==='spoon'?' is-won':'')}>{PRIZE_LABEL[p.prizeKey]}</span>
                   : <span className="ptag-none mono">—</span>}
               </td>
             </tr>
