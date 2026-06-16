@@ -864,7 +864,8 @@ const SWEEP_API = (function () {
   }
 
   // Build prize leaders from participants
-  function buildPrizes(participants, scorersData) {
+  function buildPrizes(participants, scorersData, matchday) {
+    const groupStageDone = (matchday || 0) >= 3;
     const topScorer   = (scorersData.scorers || [])[0];
     const bootPlayer  = topScorer ? topScorer.player.name : null;
     const bootTeamName = topScorer ? normaliseName(topScorer.team.name) : null;
@@ -897,7 +898,7 @@ const SWEEP_API = (function () {
         team:   goalsHolder ? goalsHolder.team : (topGoalsP ? topGoalsP.team : '—'),
         flag:   goalsHolder ? goalsHolder.flag : (topGoalsP ? topGoalsP.flag : '⏳'),
         note:   topGoalsP ? `${topGoalsP.team} leads with ${maxGoals} goals` : 'Still to be decided',
-        won:    !!goalsHolder },
+        won:    false },
       { key:'spoon',  medal:'S', label:'Wooden Spoon',        amount:12,  share:'5%',
         rule:'First team eliminated. Hard luck.',
         leader: spoonHolder ? spoonHolder.name : 'TBD',
@@ -917,7 +918,7 @@ const SWEEP_API = (function () {
 
     const matchday   = standingsData.season?.currentMatchday ?? 0;
     const participants = buildParticipants(standingsData, scorersData);
-    const prizes       = buildPrizes(participants, scorersData);
+    const prizes       = buildPrizes(participants, scorersData, matchday);
     const stages       = buildStages(matchday);
 
     return {
@@ -1604,7 +1605,9 @@ function PrizeCard({ prize, onCelebrate }) {
       <div className="pcard-foot">
         {prize.won
           ? <span className="pcard-pill pcard-pill--won mono">LOCKED IN</span>
-          : <span className="pcard-pill mono">{prize.share} OF POT</span>}
+          : prize.leader && prize.leader !== 'TBD'
+            ? <span className="pcard-pill mono">CURRENT LEADER</span>
+            : <span className="pcard-pill mono">{prize.share} OF POT</span>}
         <span className="pcard-note">{prize.note}</span>
       </div>
     </button>
